@@ -2,7 +2,7 @@
 
 namespace App\Models\Charity;
 
-use App\Enums\Chairty\ChairtyStatus;
+use App\Enums\Charity\CharityStatus;
 use Illuminate\Database\Eloquent\Model;
 
 class Charity extends Model
@@ -17,7 +17,7 @@ class Charity extends Model
     protected function casts(): array
     {
         return [
-            'is_active' => ChairtyStatus::class
+            'is_active' => CharityStatus::class
         ];
     }
 }
