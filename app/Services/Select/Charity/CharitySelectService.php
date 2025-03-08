@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Charity;
+namespace App\Services\Select\Charity;
 
 use App\Enums\Charity\CharityStatus;
 use App\Models\Charity\Charity;

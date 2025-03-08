@@ -3,7 +3,7 @@
 
 namespace App\Services\Select;
 
-use App\Services\Charity\CharitySelectService;
+use App\Services\Select\Charity\CharitySelectService;
 use App\Services\Select\Parameter\ParameterSelectService;
 
 class SelectService
