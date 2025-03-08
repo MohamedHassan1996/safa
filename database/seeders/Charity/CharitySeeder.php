@@ -2,7 +2,7 @@
 
 namespace Database\seeders\Charity;
 
-use App\Enums\Chairty\ChairtyStatus;
+use App\Enums\Charity\CharityStatus;
 use App\Models\Charity\Charity;
 use Illuminate\Database\Seeder;
 
@@ -18,7 +18,7 @@ class CharitySeeder extends Seeder
         $user = new Charity();
         $user->name = 'الصفا و المروة';
         $user->note = null;
-        $user->is_active = ChairtyStatus::ACTIVE;
+        $user->is_active = CharityStatus::ACTIVE;
         $user->save();
 
 
