@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Resources\ServiceCategory;
+namespace App\Http\Resources\Charity;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 
-class AllServiceCategoryResource extends JsonResource
+class CharityResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +16,10 @@ class AllServiceCategoryResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'serviceCategoryId' => $this->id,
+            'charityId' => $this->id,
             'name' => $this->name,
-            'addToInvoice' => $this->add_to_invoice,
-            'serviceTypeId'=>$this->service_type_id??"",
-            'price' => $this->price
+            'note' => $this->note??'',
+            'isActive'=>$this->is_active
         ];
     }
 }

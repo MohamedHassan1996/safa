@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Invoice;
-
+namespace App\Http\Resources\Charity;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class AllInvoiceCollection extends ResourceCollection
+class AllCharityCollection extends ResourceCollection
 {
     /**
      * Transform the resource into an array.
@@ -35,8 +34,8 @@ class AllInvoiceCollection extends ResourceCollection
     {
 
         return [
-            "result" => [
-                'invoices' => AllInvoiceResource::collection(($this->collection)->values()->all()),
+            "data" => [
+                'charities' => AllCharityResource::collection(($this->collection)->values()->all()),
             ],
             'pagination' => $this->pagination
         ];
