@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\Chairty\ChairtyStatus;
+use App\Enums\Charity\CharityStatus;
 use App\Traits\CreatedUpdatedByMigration;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('note')->nullable();
-            $table->tinyInteger('is_active')->default(ChairtyStatus::INACTIVE->value);
+            $table->tinyInteger('is_active')->default(CharityStatus::INACTIVE->value);
             //$this->CreatedUpdatedByRelationship($table);
             $table->timestamps();
         });
