@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Private\Select\SelectController;
 use App\Http\Controllers\Api\Private\User\UserController;
 use App\Http\Controllers\Api\Public\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
@@ -17,4 +18,10 @@ Route::prefix('v1/')->group(function () {
         Route::put('update', [UserController::class, 'update']);
         Route::delete('destroy', [UserController::class, 'destroy']);
     });
+
+    Route::prefix('selects')->group(function(){
+        Route::get('', [SelectController::class, 'getSelects']);
+    });
 });
+
+

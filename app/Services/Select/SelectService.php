@@ -3,6 +3,7 @@
 
 namespace App\Services\Select;
 
+use App\Services\Charity\CharitySelectService;
 use App\Services\Select\Parameter\ParameterSelectService;
 
 class SelectService
@@ -17,7 +18,6 @@ class SelectService
 
             $selectServiceData = $this->resolveSelectService($select);
 
-            //dd($selectServiceData);
             if ($selectServiceData) {
                 [$method, $selectServiceClass, $paramValue] = $selectServiceData;
 
@@ -58,7 +58,7 @@ class SelectService
             'roles' => ['getAllRoles', RoleSelectService::class],
             'permissions' => ['getAllPermissions', PermissionSelectService::class],
             'parameters' => ['getAllParameters', ParameterSelectService::class],
-            'serviceCategories' => ['getAllServiceCategories', ServiceCategorySelectService::class],
+            'charities' => ['getAllCharities', CharitySelectService::class],
         ];
 
         $paramValue = null; // Initialize paramValue
