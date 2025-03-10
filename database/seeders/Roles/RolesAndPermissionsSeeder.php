@@ -21,44 +21,44 @@ class RolesAndPermissionsSeeder extends Seeder
             'create_user',
             'edit_user',
             'update_user',
-            'delete_user',
+            'destroy_user',
             'change_user_status',
 
             'all_charities',
             'create_charity',
             'edit_charity',
             'update_charity',
-            'delete_charity',
+            'destroy_charity',
 
             'all_charity_cases',
             'create_charity_case',
             'edit_charity_case',
             'update_charity_case',
-            'delete_charity_case',
+            'destroy_charity_case',
 
             'all_charity_case_documents',
             'create_charity_case_document',
             'edit_charity_case_document',
             'update_charity_case_document',
-            'delete_charity_case_document',
+            'destroy_charity_case_document',
 
             'all_donations',
             'create_donation',
             'edit_donation',
             'update_donation',
-            'delete_donation',
+            'destroy_donation',
 
             'all_roles',
             'create_role',
             'edit_role',
             'update_role',
-            'delete_role',
+            'destroy_role',
 
             'all_parameters',
             'create_parameter',
             'edit_parameter',
             'update_parameter',
-            'delete_parameter',
+            'destroy_parameter',
 
         ];
 
@@ -79,38 +79,38 @@ class RolesAndPermissionsSeeder extends Seeder
             'create_user',
             'edit_user',
             'update_user',
-            'delete_user',
+            'destroy_user',
             'change_user_status',
 
             'all_charity_cases',
             'create_charity_case',
             'edit_charity_case',
             'update_charity_case',
-            'delete_charity_case',
+            'destroy_charity_case',
 
             'all_charity_case_documents',
             'create_charity_case_document',
             'edit_charity_case_document',
             'update_charity_case_document',
-            'delete_charity_case_document',
+            'destroy_charity_case_document',
 
             'all_donations',
             'create_donation',
             'edit_donation',
             'update_donation',
-            'delete_donation',
+            'destroy_donation',
 
             'all_roles',
             'create_role',
             'edit_role',
             'update_role',
-            'delete_role',
+            'destroy_role',
 
             'all_parameters',
             'create_parameter',
             'edit_parameter',
             'update_parameter',
-            'delete_parameter',
+            'destroy_parameter',
         ]);
 
         $supervisor = Role::create(['name' => 'مشرف']);
@@ -120,19 +120,19 @@ class RolesAndPermissionsSeeder extends Seeder
             'create_charity_case',
             'edit_charity_case',
             'update_charity_case',
-            'delete_charity_case',
+            'destroy_charity_case',
 
             'all_charity_case_documents',
             'create_charity_case_document',
             'edit_charity_case_document',
             'update_charity_case_document',
-            'delete_charity_case_document',
+            'destroy_charity_case_document',
 
             'all_donations',
             'create_donation',
             'edit_donation',
             'update_donation',
-            'delete_donation',
+            'destroy_donation',
 
         ]);
     }
