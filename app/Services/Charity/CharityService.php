@@ -44,14 +44,18 @@ class CharityService{
         return Charity::find($charityId);
     }
 
-    public function updateCharity(array $charityData): Charity
+    public function updateCharity(array $charityData)
     {
 
-        $charity = Charity::create([
+        $charity = Charity::find($charityData['charityId']);
+
+        $charity->fill([
             'name' => $charityData['name'],
             'is_active' => CharityStatus::from($charityData['isActive'])->value,
             'note' => $charityData['note']??'',
         ]);
+
+        $charity->save();
 
 
         return $charity;
