@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\Private\Charity\CharityCaseController;
+use App\Http\Controllers\Api\Private\Charity\CharityCaseDocumentController;
 use App\Http\Controllers\Api\Private\Charity\CharityController;
 use App\Http\Controllers\Api\Private\Select\SelectController;
 use App\Http\Controllers\Api\Private\User\UserController;
@@ -30,6 +32,22 @@ Route::prefix('v1/')->group(function () {
         Route::get('edit', [CharityController::class, 'edit']);
         Route::put('update', [CharityController::class, 'update']);
         Route::delete('destroy', [CharityController::class, 'destroy']);
+    });
+
+    Route::prefix('charity-cases')->group(function () {
+        Route::get('', [CharityCaseController::class, 'index']);
+        Route::post('create', [CharityCaseController::class, 'create']);
+        Route::get('edit', [CharityCaseController::class, 'edit']);
+        Route::put('update', [CharityCaseController::class, 'update']);
+        Route::delete('destroy', [CharityCaseController::class, 'destroy']);
+    });
+
+    Route::prefix('charity-case-documents')->group(function () {
+        Route::get('', [CharityCaseDocumentController::class, 'index']);
+        Route::post('create', [CharityCaseDocumentController::class, 'create']);
+        Route::get('edit', [CharityCaseDocumentController::class, 'edit']);
+        Route::put('update', [CharityCaseDocumentController::class, 'update']);
+        Route::delete('destroy', [CharityCaseDocumentController::class, 'destroy']);
     });
 
 });

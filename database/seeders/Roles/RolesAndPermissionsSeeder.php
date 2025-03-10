@@ -30,11 +30,17 @@ class RolesAndPermissionsSeeder extends Seeder
             'update_charity',
             'delete_charity',
 
-            'all_cases',
-            'create_case',
-            'edit_case',
-            'update_case',
-            'delete_case',
+            'all_charity_cases',
+            'create_charity_case',
+            'edit_charity_case',
+            'update_charity_case',
+            'delete_charity_case',
+
+            'all_charity_case_documents',
+            'create_charity_case_document',
+            'edit_charity_case_document',
+            'update_charity_case_document',
+            'delete_charity_case_document',
 
             'all_donations',
             'create_donation',
@@ -76,11 +82,17 @@ class RolesAndPermissionsSeeder extends Seeder
             'delete_user',
             'change_user_status',
 
-            'all_cases',
-            'create_case',
-            'edit_case',
-            'update_case',
-            'delete_case',
+            'all_charity_cases',
+            'create_charity_case',
+            'edit_charity_case',
+            'update_charity_case',
+            'delete_charity_case',
+
+            'all_charity_case_documents',
+            'create_charity_case_document',
+            'edit_charity_case_document',
+            'update_charity_case_document',
+            'delete_charity_case_document',
 
             'all_donations',
             'create_donation',
@@ -104,11 +116,17 @@ class RolesAndPermissionsSeeder extends Seeder
         $supervisor = Role::create(['name' => 'مشرف']);
         $supervisor->givePermissionTo([
 
-            'all_cases',
-            'create_case',
-            'edit_case',
-            'update_case',
-            'delete_case',
+            'all_charity_cases',
+            'create_charity_case',
+            'edit_charity_case',
+            'update_charity_case',
+            'delete_charity_case',
+
+            'all_charity_case_documents',
+            'create_charity_case_document',
+            'edit_charity_case_document',
+            'update_charity_case_document',
+            'delete_charity_case_document',
 
             'all_donations',
             'create_donation',

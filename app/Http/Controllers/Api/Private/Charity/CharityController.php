@@ -31,6 +31,8 @@ class CharityController extends Controller implements HasMiddleware
             new Middleware('permission:all_charities', only:['index']),
             new Middleware('permission:create_charity', only:['create']),
             new Middleware('permission:edit_charity', only:['edit']),
+            new Middleware('permission:update_charity', only:['update']),
+            new Middleware('permission:destroy_charity', only:['destroy']),
         ];
     }
 
@@ -50,6 +52,7 @@ class CharityController extends Controller implements HasMiddleware
     /**
      * Show the form for creating a new resource.
      */
+
 
     public function create(CreateCharityRequest $createCharityRequest)
     {

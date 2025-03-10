@@ -175,8 +175,9 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'nationalId' => [
+            'required' => 'الرقم القومى مطلوب',
+            'unique' => 'هذا الرقم القومى موجود بالفعل',
         ],
     ],
 
