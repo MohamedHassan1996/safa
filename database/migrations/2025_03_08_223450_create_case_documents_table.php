@@ -18,7 +18,7 @@ return new class extends Migration
             $table->tinyInteger('type');
             $table->string('path');
             $table->foreignId('charity_case_id')->constrained()->onDelete('cascade');
-            $this->createdUpdatedByRelationship($table);
+            //$this->createdUpdatedByRelationship($table);
             $table->timestamps();
         });
     }

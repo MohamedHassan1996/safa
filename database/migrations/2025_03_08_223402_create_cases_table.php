@@ -25,7 +25,7 @@ return new class extends Migration
             $table->tinyInteger('social_status')->default(CharityCaseSocialStatus::SINGLE->value);
             $table->date('date_of_birth')->nullable();
             $table->string('note')->nullable();
-            $this->createdUpdatedByRelationship($table);
+            //$this->createdUpdatedByRelationship($table);
             $table->timestamps();
         });
     }

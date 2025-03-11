@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('amount')->nullable();
             $table->string('note')->nullable();
             $table->foreignId('charity_case_id')->nullable()->constrained()->nullOnDelete();
-            $this->createdUpdatedByRelationship($table);
+            //$this->createdUpdatedByRelationship($table);
             $table->timestamps();
         });
     }
