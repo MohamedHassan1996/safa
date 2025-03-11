@@ -2,14 +2,13 @@
 
 namespace App\Http\Requests\Donation;
 
-use App\Enums\Charity\CharityStatus;
 use App\Enums\Donation\DonationType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\Rules\Enum;
 
-class UpdateCharityRequest extends FormRequest
+class UpdateDonationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

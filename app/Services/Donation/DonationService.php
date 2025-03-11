@@ -12,7 +12,7 @@ class DonationService{
 
 
 
-    public function allCharities()
+    public function allDonations()
     {
         $charities = QueryBuilder::for(Donation::class)
             ->allowedFilters([
@@ -25,7 +25,7 @@ class DonationService{
 
     }
 
-    public function create(array $donationData): Donation
+    public function createDonation(array $donationData): Donation
     {
 
         $donation = Donation::create([
