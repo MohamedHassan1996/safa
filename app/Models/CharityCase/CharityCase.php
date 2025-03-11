@@ -4,10 +4,12 @@ namespace App\Models\CharityCase;
 
 use App\Enums\Charity\CharityCaseGender;
 use App\Enums\Charity\CharityCaseSocialStatus;
+use App\Traits\CreatedUpdatedBy;
 use Illuminate\Database\Eloquent\Model;
 
 class CharityCase extends Model
 {
+    use CreatedUpdatedBy;
 
     protected $table = 'charity_cases';
 

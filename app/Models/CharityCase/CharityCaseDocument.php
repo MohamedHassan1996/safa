@@ -2,12 +2,14 @@
 
 namespace App\Models\CharityCase;
 
+use App\Traits\CreatedUpdatedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class CharityCaseDocument extends Model
 {
+    use CreatedUpdatedBy;
     protected $fillable = [
         'type',
         'path',

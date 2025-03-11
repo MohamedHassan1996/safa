@@ -68,7 +68,7 @@ class CharityCaseDocumentController extends Controller implements HasMiddleware
             $files = $request->file('files');
 
             foreach ($files as $file) {
-                $path = $this->uploadService->uploadFile($file, 'charity_cases/' . $charityCase->id);
+                $path = $this->uploadService->uploadFile($file['path'], 'charity_cases/' . $charityCase->id);
 
                 CharityCaseDocument::create([
                     'charity_case_id' => $charityCase->id,
