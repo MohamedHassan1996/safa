@@ -3,7 +3,6 @@
 namespace App\Services\Select\Charity;
 
 use App\Enums\Charity\CharityStatus;
-use App\Models\Charity\Charity;
 use App\Models\CharityCase\CharityCase;
 
 class CharityCaseSelectService{
