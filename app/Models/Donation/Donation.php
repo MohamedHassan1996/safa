@@ -16,6 +16,14 @@ class Donation extends Model
         'charity_case_id',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $model->number = time() . mt_rand(1000, 9999);
+        });
+    }
+
     protected function casts(): array
     {
         return [
