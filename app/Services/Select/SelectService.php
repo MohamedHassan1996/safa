@@ -3,6 +3,7 @@
 
 namespace App\Services\Select;
 
+use App\Services\Select\Charity\CharityCaseSelectService;
 use App\Services\Select\Charity\CharitySelectService;
 use App\Services\Select\Parameter\ParameterSelectService;
 
@@ -59,6 +60,7 @@ class SelectService
             'permissions' => ['getAllPermissions', PermissionSelectService::class],
             'parameters' => ['getAllParameters', ParameterSelectService::class],
             'charities' => ['getAllCharities', CharitySelectService::class],
+            'charityCases' => ['getAllCharityCases', CharityCaseSelectService::class],
         ];
 
         $paramValue = null; // Initialize paramValue
