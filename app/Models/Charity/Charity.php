@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Charity extends Model
 {
-    use CreatedUpdatedBy;
+    //use CreatedUpdatedBy;
     protected $fillable = [
         'name',
         'note',
