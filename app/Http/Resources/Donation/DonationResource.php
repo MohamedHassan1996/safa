@@ -22,6 +22,7 @@ class DonationResource extends JsonResource
             'amount' => $this->amount??0,
             'type' => $this->type,
             'charityCaseId' => $this->charity_case_id,
+            'date' => $this->date
         ];
     }
 }

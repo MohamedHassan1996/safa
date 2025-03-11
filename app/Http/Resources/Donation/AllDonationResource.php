@@ -21,6 +21,8 @@ class AllDonationResource extends JsonResource
             'note' => $this->note??'',
             'amount' => $this->amount??0,
             'type' => $this->type,
+            'date' => $this->date
+
         ];
     }
 }
