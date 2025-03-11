@@ -51,7 +51,7 @@ Route::prefix('v1/')->group(function () {
         Route::delete('destroy', [CharityCaseDocumentController::class, 'destroy']);
     });
 
-    Route::prefix('charity-case-documents')->group(function () {
+    Route::prefix('donations')->group(function () {
         Route::get('', [DonationController::class, 'index']);
         Route::post('create', [DonationController::class, 'create']);
         Route::get('edit', [DonationController::class, 'edit']);
