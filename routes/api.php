@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Private\Charity\CharityCaseController;
 use App\Http\Controllers\Api\Private\Charity\CharityCaseDocumentController;
 use App\Http\Controllers\Api\Private\Charity\CharityController;
+use App\Http\Controllers\Api\Private\Donation\DonationController;
 use App\Http\Controllers\Api\Private\Select\SelectController;
 use App\Http\Controllers\Api\Private\User\UserController;
 use App\Http\Controllers\Api\Public\Auth\AuthController;
@@ -49,6 +50,15 @@ Route::prefix('v1/')->group(function () {
         Route::put('update', [CharityCaseDocumentController::class, 'update']);
         Route::delete('destroy', [CharityCaseDocumentController::class, 'destroy']);
     });
+
+    Route::prefix('charity-case-documents')->group(function () {
+        Route::get('', [DonationController::class, 'index']);
+        Route::post('create', [DonationController::class, 'create']);
+        Route::get('edit', [DonationController::class, 'edit']);
+        Route::put('update', [DonationController::class, 'update']);
+        Route::delete('destroy', [DonationController::class, 'destroy']);
+    });
+
 
 });
 
