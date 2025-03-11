@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Donation;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -21,8 +22,7 @@ class AllDonationResource extends JsonResource
             'note' => $this->note??'',
             'amount' => $this->amount??0,
             'type' => $this->type,
-            'date' => $this->date
-
+            'date' => Carbon::parse($this->date)->format('d/m/Y'),
         ];
     }
 }
