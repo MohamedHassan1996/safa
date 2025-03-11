@@ -17,7 +17,7 @@ class DonationService{
         $charities = QueryBuilder::for(Donation::class)
             ->allowedFilters([
                 AllowedFilter::custom('search', new FilterDonation()), // Add a custom search filter
-                AllowedFilter::exact('isActive', 'is_active')
+                AllowedFilter::exact('type', )
             ])
             ->get();
 

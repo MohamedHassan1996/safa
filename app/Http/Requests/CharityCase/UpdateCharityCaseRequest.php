@@ -24,8 +24,8 @@ class UpdateCharityCaseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'caseId' => 'required',
-            'nationalId' => ['required', "unique:charity_cases,national_id,$this->caseId'"],
+            'charityCaseId' => 'required',
+            'nationalId' => ['required', "unique:charity_cases,national_id,$this->charityCaseId'"],
             'name' => 'required',
             'phone' => 'nullable',
             'address' => 'nullable',
