@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CharityCase extends Model
 {
-    //use CreatedUpdatedBy;
+    use CreatedUpdatedBy;
 
     protected $table = 'charity_cases';
 
