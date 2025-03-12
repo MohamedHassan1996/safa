@@ -14,29 +14,65 @@ class DonationService{
 
     public function allDonations()
     {
-        $charities = QueryBuilder::for(Donation::class)
+        $filters = request()->input('filter', []);
+        $startDate = $filters['startDate'] ?? null;
+        $endDate = $filters['endDate'] ?? null;
+
+        $donations = QueryBuilder::for(Donation::class)
             ->allowedFilters([
                 AllowedFilter::custom('search', new FilterDonation()), // Add a custom search filter
                 AllowedFilter::exact('type'),
-                AllowedFilter::exact('gender'),
-                AllowedFilter::exact('socialStatus', 'social_status')
+                AllowedFilter::exact('charityCaseId', 'charity_case_id'),
+                AllowedFilter::exact('charityId', 'charity_id')
+            ])
+            ->when(
+                !empty($startDate) && !empty($endDate),
+                function ($query) use ($startDate, $endDate) {
+                    $query->whereDate('date', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
+                }
+            )
+            ->when(
+                !empty($endDate) && empty($startDate),
+                function ($query) use ($endDate) {
+
+                    $query->whereDate('date', '<=', $endDate);
+                }
+            )
+            ->when(
+                empty($endDate) && !empty($startDate),
+                function ($query) use ($startDate) {
+
+                    $query->whereDate('date', '=', $startDate);
+                }
+            )
+            ->with([
+                'charityCase',
+                'charity',
             ])
             ->get();
 
-        return $charities;
+        return $donations;
 
     }
 
     public function createDonation(array $donationData): Donation
     {
+        $auth = auth()->user();
+        $currentUserRole = $auth->getRoleNames()[0];
+        $donation = new Donation();
+        $donation->amount = $donationData['amount']??0;
+        $donation->type = DonationType::from($donationData['type'])->value;
+        $donation->note = $donationData['note']??0;
+        $donation->charity_case_id = $donationData['charityCaseId'];
 
-        $donation = Donation::create([
-            'amount' => $donationData['amount'],
-            'date' => $donationData['date'],
-            'type' => DonationType::from($donationData['type'])->value,
-            'note' => $donationData['note']??'',
-            'charity_case_id' => $donationData['charityCaseId'],
-        ]);
+        if($currentUserRole == 'مدير عام'){
+            $donation->charity_id = $donationData['charityId'];
+        }else{
+            $donation->charity_id = auth()->user()->charity_id;
+        }
+
+        $donation->save();
+
 
         return $donation;
 
@@ -50,15 +86,20 @@ class DonationService{
     public function updateDonation(array $donationData)
     {
 
-        $donation = Donation::find($donationData['donationId']);
+        $auth = auth()->user();
+        $currentUserRole = $auth->getRoleNames()[0];
 
-        $donation->fill([
-            'amount' => $donationData['amount'],
-            'date' => $donationData['date'],
-            'type' => DonationType::from($donationData['type'])->value,
-            'note' => $donationData['note']??'',
-            'charity_case_id' => $donationData['charityCaseId'],
-        ]);
+        $donation = Donation::find($donationData['donationId']);
+        $donation->amount = $donationData['amount']??0;
+        $donation->type = DonationType::from($donationData['type'])->value;
+        $donation->note = $donationData['note']??0;
+        $donation->charity_case_id = $donationData['charityCaseId'];
+
+        if($currentUserRole == 'مدير عام'){
+            $donation->charity_id = $donationData['charityId'];
+        }else{
+            $donation->charity_id = auth()->user()->charity_id;
+        }
 
         $donation->save();
 

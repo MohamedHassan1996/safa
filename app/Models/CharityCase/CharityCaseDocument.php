@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class CharityCaseDocument extends Model
 {
-    //use CreatedUpdatedBy;
+    use CreatedUpdatedBy;
     protected $fillable = [
         'type',
         'path',

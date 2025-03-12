@@ -23,6 +23,8 @@ class CharityCaseService{
             ->allowedFilters([
                 AllowedFilter::custom('search', new FilterCharityCase()), // Add a custom search filter
                 AllowedFilter::exact('socialStatus', 'social_status'),
+                AllowedFilter::exact('type'),
+                AllowedFilter::exact('gender'),
             ])
             ->get();
 

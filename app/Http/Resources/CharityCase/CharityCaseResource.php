@@ -22,8 +22,8 @@ class CharityCaseResource extends JsonResource
             'phone' => $this->phone??'',
             'address'=>$this->address??'',
             'gender'=>$this->gender,
-            'date_of_birth'=>$this->date_of_birth??'',
-            'social_status'=>$this->social_status,
+            'dateOfBirth'=>$this->date_of_birth??'',
+            'socialStatus'=>$this->social_status,
             'note'=>$this->note??'',
         ];
     }

@@ -33,6 +33,7 @@ class CreateDonationRequest extends FormRequest
             'date' => 'nullable',
             'type' => ['required', new Enum(DonationType::class)],
             'charityCaseId' => ['required'],
+            'charityId' => ['nullable']
         ];
 
     }
