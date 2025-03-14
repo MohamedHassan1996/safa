@@ -26,7 +26,7 @@ class CreateCharityCaseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nationalId' => ['required', 'unique:charity_cases,national_id'],
+            'nationalId' => ['required', 'unique:charity_cases,national_id', 'length:14'],
             'name' => 'required',
             'phone' => 'nullable',
             'address' => 'nullable',
@@ -51,6 +51,7 @@ class CreateCharityCaseRequest extends FormRequest
         return [
             'nationalId.required' => __('validation.custom.nationalId.required'),
             'nationalId.unique' => __('validation.custom.nationalId.unique'),
+            'nationalId.length' => __('validation.custom.nationalId.length'),
         ];
     }
 
