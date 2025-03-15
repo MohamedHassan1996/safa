@@ -43,7 +43,7 @@ class AuthService
             $token = $user->createToken('auth_token')->plainTextToken;
 
             // Store the token in an HTTP-only cookie
-            $cookie = cookie('auth_token', $token, 600 * 10, '/', null, true, true); // 1 day, secure, HTTP-only
+            //$cookie = cookie('auth_token', $token, 600 * 10, '/', null, true, true); // 1 day, secure, HTTP-only
 
             return response()->json([
                 'profile' => new LoggedInUserResource($user),
@@ -53,7 +53,7 @@ class AuthService
                     'token' => $token,
                     'expiresIn' => 60 * 10
                 ],
-            ])->withCookie($cookie, true);
+            ]);//->withCookie($cookie, true);
 
         } catch (\Throwable $th) {
             return response()->json([
