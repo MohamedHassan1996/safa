@@ -8,7 +8,9 @@ use App\Http\Controllers\Api\Private\Select\SelectController;
 use App\Http\Controllers\Api\Private\User\UserController;
 use App\Http\Controllers\Api\Public\Auth\AuthController;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Spatie\Activitylog\Models\Activity;
 
 Route::prefix('v1/')->group(function () {
@@ -63,28 +65,134 @@ Route::prefix('v1/')->group(function () {
 });
 
 
-Route::get("logs", function () {
+Route::get("v1/logs/charity-cases", function () {
 
-    $logs = Activity::where('log_name', 'charity_case')->latest()->get();
+    $logs = Activity::where('log_name', 'charityCase')->latest()->get();
 
     $arrayOfLogs = [];
     $actionTranslations = [
-        'created' => 'اضافة',
-        'updated' => 'تحديث',
-        'deleted' => 'حذف',
+        'created' => 'created',
+        'updated' => 'updated',
+        'deleted' => 'deleted',
     ];
+
     foreach ($logs as $log) {
+        $subjectType = $log->subject_type; // "App\\Models\\CharityCase\\CharityCase"
+        $subjectId = $log->subject_id;
+
+        $value = null;
+        if (class_exists($subjectType)) {
+            $modelInstance = $subjectType::find($subjectId);
+            if ($modelInstance) {
+                $logMainColumn = $modelInstance->logMainColumn ?? null;
+                $value = $logMainColumn ? $modelInstance->{$logMainColumn} : null;
+            }
+        }
+
+        // Extract the updated properties
+        $props = [];
+        if ($log->event === 'updated' && isset($log->properties['attributes'], $log->properties['old'])) {
+            foreach ($log->properties['attributes'] as $key => $newValue) {
+                $oldValue = $log->properties['old'][$key] ?? null;
+
+                // Exclude created_at and updated_at
+                if (in_array($key, ['created_at', 'updated_at'])) {
+                    continue;
+                }
+
+                $camelKey = Str::camel($key); // Convert snake_case to camelCase
+
+                if ($oldValue !== $newValue) {
+                    $props[$camelKey] = [
+                        'old' => $oldValue,
+                        'new' => $newValue
+                    ];
+                }
+            }
+        }
+
         $arrayOfLogs[] = [
             'userId' => $log->causer_id,
-            'userName' => User::find($log->causer_id)->name,
-            'userAvatar' => $log->causer->avatar,
-            'logId' => $log->id,
-            'logName' => $log->log_name,
-            'actionType' => $actionTranslations[$log->log_name],
+            'userName' => optional(User::find($log->causer_id))->name,
+            'userAvatar' => optional($log->causer)->avatar,
+            'date' => Carbon::parse($log->created_at)->format('d/m/Y'),
+            'time' => Carbon::parse($log->created_at)->format('H:i'),
+            'model' => [
+                'id' => $log->subject_id,
+                'name' => $log->log_name,
+                'title' => $value,
+            ],
+            'actionType' => $actionTranslations[$log->event] ?? $log->event,
+            'properties' => $props, // Only changed properties
         ];
-
     }
 
+    return $arrayOfLogs;
+});
 
+
+Route::get("v1/logs/donations", function () {
+
+    $logs = Activity::where('log_name', 'donation')->latest()->get();
+
+    $arrayOfLogs = [];
+    $actionTranslations = [
+        'created' => 'created',
+        'updated' => 'updated',
+        'deleted' => 'deleted',
+    ];
+
+    foreach ($logs as $log) {
+        $subjectType = $log->subject_type; // "App\\Models\\CharityCase\\CharityCase"
+        $subjectId = $log->subject_id;
+
+        $value = null;
+        if (class_exists($subjectType)) {
+            $modelInstance = $subjectType::find($subjectId);
+            if ($modelInstance) {
+                $logMainColumn = $modelInstance->logMainColumn ?? null;
+                $value = $logMainColumn ? $modelInstance->{$logMainColumn} : null;
+            }
+        }
+
+        // Extract the updated properties
+        $props = [];
+        if ($log->event === 'updated' && isset($log->properties['attributes'], $log->properties['old'])) {
+            foreach ($log->properties['attributes'] as $key => $newValue) {
+                $oldValue = $log->properties['old'][$key] ?? null;
+
+                // Exclude created_at and updated_at
+                if (in_array($key, ['created_at', 'updated_at'])) {
+                    continue;
+                }
+
+                $camelKey = Str::camel($key); // Convert snake_case to camelCase
+
+                if ($oldValue !== $newValue) {
+                    $props[$camelKey] = [
+                        'old' => $oldValue,
+                        'new' => $newValue
+                    ];
+                }
+            }
+        }
+
+        $arrayOfLogs[] = [
+            'userId' => $log->causer_id,
+            'userName' => optional(User::find($log->causer_id))->name,
+            'userAvatar' => optional($log->causer)->avatar,
+            'date' => Carbon::parse($log->created_at)->format('d/m/Y'),
+            'time' => Carbon::parse($log->created_at)->format('H:i'),
+            'model' => [
+                'id' => $log->subject_id,
+                'name' => $log->log_name,
+                'title' => $value,
+            ],
+            'actionType' => $actionTranslations[$log->event] ?? $log->event,
+            'properties' => $props, // Only changed properties
+        ];
+    }
+
+    return $arrayOfLogs;
 });
 

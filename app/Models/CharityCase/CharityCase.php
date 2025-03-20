@@ -17,13 +17,15 @@ class CharityCase extends Model
     protected $table = 'charity_cases';
 
     //protected static $logAttributes = ['title', 'content']; // Fields to track
-    protected static $logName = 'charity_case'; // Custom log name
+    protected static $logName = 'charityCase'; // Custom log name
+
+    public $logMainColumn = 'name';
 
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
             ->logAll()
-            ->useLogName('charity_case')
+            ->useLogName('charityCase')
             ->setDescriptionForEvent(function (string $eventName) {
                 $user = auth()->user();
                 $userName = $user ? $user->name : 'مستخدم غير معروف';
