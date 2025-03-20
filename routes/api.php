@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Private\Donation\DonationController;
 use App\Http\Controllers\Api\Private\Select\SelectController;
 use App\Http\Controllers\Api\Private\User\UserController;
 use App\Http\Controllers\Api\Public\Auth\AuthController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Spatie\Activitylog\Models\Activity;
 
@@ -66,8 +67,22 @@ Route::get("logs", function () {
 
     $logs = Activity::where('log_name', 'charity_case')->latest()->get();
 
+    $arrayOfLogs = [];
+    $actionTranslations = [
+        'created' => 'اضافة',
+        'updated' => 'تحديث',
+        'deleted' => 'حذف',
+    ];
     foreach ($logs as $log) {
-        echo $log->description . "<br>";
+        $arrayOfLogs[] = [
+            'userId' => $log->causer_id,
+            'userName' => User::find($log->causer_id)->name,
+            'userAvatar' => $log->causer->avatar,
+            'logId' => $log->id,
+            'logName' => $log->log_name,
+            'actionType' => $actionTranslations[$log->log_name],
+        ];
+
     }
 
 
