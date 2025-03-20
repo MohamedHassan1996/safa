@@ -35,6 +35,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'edit_charity_case',
             'update_charity_case',
             'destroy_charity_case',
+            'all_charity_case_logs',
 
             'all_charity_case_documents',
             'create_charity_case_document',
@@ -47,6 +48,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'edit_donation',
             'update_donation',
             'destroy_donation',
+            'all_donation_logs',
 
             'all_roles',
             'create_role',
