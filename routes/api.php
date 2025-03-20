@@ -69,7 +69,7 @@ Route::prefix('v1/')->group(function () {
 });
 
 
-Route::get("v1/logs/charity-cases", function () {
+Route::get("v1/logs/charity-cases", function (Request $request) {
 
     $logs = Activity::where('log_name', 'charityCase')->latest()->get();
 
@@ -131,7 +131,9 @@ Route::get("v1/logs/charity-cases", function () {
         ];
     }
 
-    return $arrayOfLogs;
+    return response()->json(
+        new AllLogHistoryCollection(PaginateCollection::paginate(collect($arrayOfLogs), $request->pageSize?$request->pageSize:10))
+    , 200);
 });
 
 
