@@ -6,13 +6,35 @@ use App\Enums\Charity\CharityCaseGender;
 use App\Enums\Charity\CharityCaseSocialStatus;
 use App\Traits\CreatedUpdatedBy;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Support\Facades\Lang; // Import Lang facade
 
 class CharityCase extends Model
 {
-    use CreatedUpdatedBy;
+    use CreatedUpdatedBy, LogsActivity;
 
     protected $table = 'charity_cases';
 
+    //protected static $logAttributes = ['title', 'content']; // Fields to track
+    protected static $logName = 'charity_case'; // Custom log name
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll()
+            ->useLogName('charity_case')
+            ->setDescriptionForEvent(function (string $eventName) {
+                $user = auth()->user();
+                $userName = $user ? $user->name : 'مستخدم غير معروف';
+
+                return Lang::get("logs.$eventName", [
+                    'name' => $this->name,
+                    'nationalId' => $this->national_id,
+                    'user' => $userName
+                ]);
+            });
+    }
     protected $fillable = [
         'national_id',
         'name',

@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use OpenApi\Annotations as OA;
 
 
 class UserController extends Controller implements HasMiddleware
@@ -36,9 +37,61 @@ class UserController extends Controller implements HasMiddleware
         ];
     }
 
+
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/users",
+     *     summary="Get list of users",
+     *     tags={"User"},
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         name="page",
+     *         in="query",
+     *         required=false,
+     *         description="Page number for pagination",
+     *         @OA\Schema(type="integer", default=1)
+     *     ),
+     *     @OA\Parameter(
+     *         name="pageSize",
+     *         in="query",
+     *         required=false,
+     *         description="Number of users per page",
+     *         @OA\Schema(type="integer", default=10)
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", type="object",
+     *                 @OA\Property(property="users", type="array",
+     *                     @OA\Items(
+     *                         @OA\Property(property="userId", type="integer", example=1),
+     *                         @OA\Property(property="name", type="string", example="John Doe"),
+     *                         @OA\Property(property="username", type="string", example="johndoe"),
+     *                         @OA\Property(property="status", type="string", example="active"),
+     *                         @OA\Property(property="avatar", type="string", example="https://example.com/avatar.jpg"),
+     *                         @OA\Property(property="roleName", type="string", example="Admin"),
+     *                         @OA\Property(property="charityName", type="string", example="Charity Org")
+     *                     )
+     *                 )
+     *             ),
+     *             @OA\Property(property="pagination", type="object",
+     *                 @OA\Property(property="total", type="integer", example=100),
+     *                 @OA\Property(property="count", type="integer", example=10),
+     *                 @OA\Property(property="per_page", type="integer", example=10),
+     *                 @OA\Property(property="current_page", type="integer", example=1),
+     *                 @OA\Property(property="total_pages", type="integer", example=10)
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized"
+     *     )
+     * )
      */
+
+
     public function index(Request $request)
     {
         $allUsers = $this->userService->allUsers();

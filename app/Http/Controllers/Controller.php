@@ -32,6 +32,14 @@ use OpenApi\Annotations as OA;
  *         description="Production Server"
  *     )
  * )
+ *  @OA\Tag(
+ *         name="Authentication",
+ *         description="Authentication related endpoints"
+ *     ),
+ *     @OA\Tag(
+ *         name="User",
+ *         description="User related endpoints"
+ *     )
  * )
 
  */

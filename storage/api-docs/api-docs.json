@@ -24,6 +24,125 @@
         }
     ],
     "paths": {
+        "/users": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get list of users",
+                "operationId": "4a7984a9ff62eb136164210d92c0554b",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number for pagination",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "Number of users per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "users": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "userId": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "John Doe"
+                                                            },
+                                                            "username": {
+                                                                "type": "string",
+                                                                "example": "johndoe"
+                                                            },
+                                                            "status": {
+                                                                "type": "string",
+                                                                "example": "active"
+                                                            },
+                                                            "avatar": {
+                                                                "type": "string",
+                                                                "example": "https://example.com/avatar.jpg"
+                                                            },
+                                                            "roleName": {
+                                                                "type": "string",
+                                                                "example": "Admin"
+                                                            },
+                                                            "charityName": {
+                                                                "type": "string",
+                                                                "example": "Charity Org"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "pagination": {
+                                            "properties": {
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 100
+                                                },
+                                                "count": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "total_pages": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/auth/login": {
             "post": {
                 "tags": [
@@ -36,12 +155,8 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "required": [
-                                    "username",
-                                    "password"
-                                ],
                                 "properties": {
-                                    "username": {
+                                    "email": {
                                         "type": "string",
                                         "example": "admin"
                                     },
@@ -62,9 +177,59 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "access_token": {
+                                        "profile": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "مستر محمد عبده"
+                                                },
+                                                "username": {
+                                                    "type": "string",
+                                                    "example": "Admin"
+                                                },
+                                                "phone": {
+                                                    "type": "string",
+                                                    "example": "1234567890"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "admin@admin.com"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "role": {
                                             "type": "string",
-                                            "example": "your_jwt_token"
+                                            "example": "مدير عام"
+                                        },
+                                        "permissions": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "permissionName": {
+                                                        "type": "string",
+                                                        "example": "all_users"
+                                                    },
+                                                    "access": {
+                                                        "type": "boolean",
+                                                        "example": true
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "tokenDetails": {
+                                            "properties": {
+                                                "token": {
+                                                    "type": "string",
+                                                    "example": "21|2ceHorzqQmn3..."
+                                                },
+                                                "expiresIn": {
+                                                    "type": "integer",
+                                                    "example": 600
+                                                }
+                                            },
+                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
@@ -78,13 +243,13 @@
                 }
             }
         },
-        "/api/v1/auth/logout": {
+        "/auth/logout": {
             "post": {
                 "tags": [
                     "Authentication"
                 ],
                 "summary": "Logout user",
-                "operationId": "7fe0894c196cddc388bf1a9bc3887697",
+                "operationId": "0ba0c27a94debd8532d78c5a92d93cd4",
                 "responses": {
                     "200": {
                         "description": "Logout successful",
@@ -101,8 +266,16 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         }
     },
@@ -118,7 +291,11 @@
     "tags": [
         {
             "name": "Authentication",
-            "description": "Authentication"
+            "description": "Authentication related endpoints"
+        },
+        {
+            "name": "User",
+            "description": "User related endpoints"
         }
     ]
 }

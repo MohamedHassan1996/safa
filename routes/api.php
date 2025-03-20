@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\Private\Select\SelectController;
 use App\Http\Controllers\Api\Private\User\UserController;
 use App\Http\Controllers\Api\Public\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
+use Spatie\Activitylog\Models\Activity;
 
 Route::prefix('v1/')->group(function () {
     Route::prefix('auth')->group(function () {
@@ -46,8 +47,6 @@ Route::prefix('v1/')->group(function () {
     Route::prefix('charity-case-documents')->group(function () {
         Route::get('', [CharityCaseDocumentController::class, 'index']);
         Route::post('create', [CharityCaseDocumentController::class, 'create']);
-        Route::get('edit', [CharityCaseDocumentController::class, 'edit']);
-        Route::put('update', [CharityCaseDocumentController::class, 'update']);
         Route::delete('destroy', [CharityCaseDocumentController::class, 'destroy']);
     });
 
@@ -62,4 +61,15 @@ Route::prefix('v1/')->group(function () {
 
 });
 
+
+Route::get("logs", function () {
+
+    $logs = Activity::where('log_name', 'charity_case')->latest()->get();
+
+    foreach ($logs as $log) {
+        echo $log->description . "<br>";
+    }
+
+
+});
 
