@@ -7,11 +7,15 @@ use App\Http\Controllers\Api\Private\Donation\DonationController;
 use App\Http\Controllers\Api\Private\Select\SelectController;
 use App\Http\Controllers\Api\Private\User\UserController;
 use App\Http\Controllers\Api\Public\Auth\AuthController;
+use App\Http\Resources\LogHistory\AllLogHistoryCollection;
 use App\Models\User;
+use App\Utils\PaginateCollection;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Spatie\Activitylog\Models\Activity;
+use Illuminate\Http\Request;
+
 
 Route::prefix('v1/')->group(function () {
     Route::prefix('auth')->group(function () {
@@ -131,7 +135,7 @@ Route::get("v1/logs/charity-cases", function () {
 });
 
 
-Route::get("v1/logs/donations", function () {
+Route::get("v1/logs/donations", function (Request $request) {
 
     $logs = Activity::where('log_name', 'donation')->latest()->get();
 
@@ -193,6 +197,8 @@ Route::get("v1/logs/donations", function () {
         ];
     }
 
-    return $arrayOfLogs;
+    return response()->json(
+        new AllLogHistoryCollection(PaginateCollection::paginate(collect($arrayOfLogs), $request->pageSize?$request->pageSize:10))
+    , 200);
 });
 
