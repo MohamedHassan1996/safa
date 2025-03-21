@@ -19,7 +19,7 @@ class CharityCase extends Model
     //protected static $logAttributes = ['title', 'content']; // Fields to track
     protected static $logName = 'charityCase'; // Custom log name
 
-    public $logMainColumn = 'name';
+    public static $logMainColumn = 'name';
 
     public function getActivitylogOptions(): LogOptions
     {

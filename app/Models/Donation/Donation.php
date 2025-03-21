@@ -26,7 +26,7 @@ class Donation extends Model
 
     protected static $logName = 'donation'; // Custom log name
 
-    public $logMainColumn = 'number';
+    public static $logMainColumn = 'number';
 
 
     public static function boot()
