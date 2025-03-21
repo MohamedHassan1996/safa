@@ -150,19 +150,18 @@ Route::get("v1/logs/donations", function (Request $request) {
 
     foreach ($logs as $log) {
         $subjectType = $log->subject_type; // "App\\Models\\CharityCase\\CharityCase"
-        $subjectId = $log->subject_id;
 
-        $value = null;
+        $title = null;
+
+        $modelMainColumn = null;
         if (class_exists($subjectType)) {
-            $modelInstance = $subjectType::find($subjectId);
-            if ($modelInstance) {
-                $logMainColumn = $modelInstance->logMainColumn ?? null;
-                $value = $logMainColumn ? $modelInstance->{$logMainColumn} : null;
-            }
+            $modelMainColumn = $subjectType::$logMainColumn;
+            $title = $log->event == 'deleted' ? $log->properties['old'][$modelMainColumn] : $log->properties['attributes'][$modelMainColumn];
         }
 
         // Extract the updated properties
         $props = [];
+
         if ($log->event === 'updated' && isset($log->properties['attributes'], $log->properties['old'])) {
             foreach ($log->properties['attributes'] as $key => $newValue) {
                 $oldValue = $log->properties['old'][$key] ?? null;
@@ -192,7 +191,7 @@ Route::get("v1/logs/donations", function (Request $request) {
             'model' => [
                 'id' => $log->subject_id,
                 'name' => $log->log_name,
-                'title' => $value,
+                'title' => $title,
             ],
             'actionType' => $actionTranslations[$log->event] ?? $log->event,
             'properties' => $props, // Only changed properties

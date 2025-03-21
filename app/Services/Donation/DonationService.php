@@ -62,7 +62,7 @@ class DonationService{
         $donation = new Donation();
         $donation->amount = $donationData['amount']??0;
         $donation->type = DonationType::from($donationData['type'])->value;
-        $donation->note = $donationData['note']??0;
+        $donation->note = $donationData['note']??'';
         $donation->charity_case_id = $donationData['charityCaseId'];
         $donation->date = $donationData['date'];
 
@@ -93,7 +93,7 @@ class DonationService{
         $donation = Donation::find($donationData['donationId']);
         $donation->amount = $donationData['amount']??0;
         $donation->type = DonationType::from($donationData['type'])->value;
-        $donation->note = $donationData['note']??0;
+        $donation->note = $donationData['note']??'';
         $donation->charity_case_id = $donationData['charityCaseId'];
 
         if($currentUserRole == 'مدير عام'){
