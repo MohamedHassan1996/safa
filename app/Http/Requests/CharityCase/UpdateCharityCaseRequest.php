@@ -31,7 +31,7 @@ class UpdateCharityCaseRequest extends FormRequest
             'address' => 'nullable',
             'socialStatus' => ['required'],
             'gender' => ['required'],
-            'dataOfBirth' => ['nullable'],
+            'dateOfBirth' => ['nullable'],
             'note' => ['nullable']
         ];
     }
