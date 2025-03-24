@@ -23,8 +23,8 @@ class AllDonationResource extends JsonResource
             'amount' => $this->amount?$this->amount.'ج':0,
             'type' => $this->type,
             'date' => Carbon::parse($this->date)->format('d/m/Y'),
-            'charityCaseName' => $this->charityCase->name,
-            'charityName' => $this->charity->name
+            'charityCaseName' => $this->charityCase?->name??'',
+            'charityName' => $this->charity?->name??''
         ];
     }
 }
