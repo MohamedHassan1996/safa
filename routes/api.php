@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Private\Charity\CharityCaseController;
 use App\Http\Controllers\Api\Private\Charity\CharityCaseDocumentController;
 use App\Http\Controllers\Api\Private\Charity\CharityController;
+use App\Http\Controllers\Api\Private\Dashboard\DashboardController;
 use App\Http\Controllers\Api\Private\Donation\DonationController;
 use App\Http\Controllers\Api\Private\Select\SelectController;
 use App\Http\Controllers\Api\Private\User\UserController;
@@ -63,6 +64,10 @@ Route::prefix('v1/')->group(function () {
         Route::get('edit', [DonationController::class, 'edit']);
         Route::put('update', [DonationController::class, 'update']);
         Route::delete('destroy', [DonationController::class, 'destroy']);
+    });
+
+    Route::prefix('dashboard')->group(function () {
+        Route::get('', [DashboardController::class, 'index']);
     });
 
 
