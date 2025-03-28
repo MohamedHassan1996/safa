@@ -95,6 +95,7 @@ class DonationService{
         $donation->type = DonationType::from($donationData['type'])->value;
         $donation->note = $donationData['note']??'';
         $donation->charity_case_id = $donationData['charityCaseId'];
+        $donation->date = $donationData['date'];
 
         if($currentUserRole == 'مدير عام'){
             $donation->charity_id = $donationData['charityId'];
