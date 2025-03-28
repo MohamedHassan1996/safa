@@ -37,35 +37,36 @@ class DashboardController extends Controller implements HasMiddleware
         $totalCharityCases = DB::table('charity_cases')->count();
         $allOuterDonations = DB::table('donations')->sum('amount');
 
-
-        $dailyDonations = DB::table('donations')
+        $donations = DB::table('donations')
         ->selectRaw("
             SUM(CASE WHEN `date` = CURDATE() THEN amount ELSE 0 END) AS today_total,
             SUM(CASE WHEN `date` = CURDATE() - INTERVAL 1 DAY THEN amount ELSE 0 END) AS yesterday_total,
-            IF(SUM(CASE WHEN `date` = CURDATE() - INTERVAL 1 DAY THEN amount ELSE 0 END) > 0,
-                ROUND(((SUM(CASE WHEN `date` = CURDATE() THEN amount ELSE 0 END) - SUM(CASE WHEN `date` = CURDATE() - INTERVAL 1 DAY THEN amount ELSE 0 END)) / SUM(CASE WHEN `date` = CURDATE() - INTERVAL 1 DAY THEN amount ELSE 0 END)) * 100, 2),
-                0
-            ) AS percent_change
+
+            SUM(CASE WHEN YEAR(`date`) = YEAR(CURDATE()) AND MONTH(`date`) = MONTH(CURDATE()) THEN amount ELSE 0 END) AS this_month_total,
+            SUM(CASE WHEN YEAR(`date`) = YEAR(CURDATE() - INTERVAL 1 MONTH) AND MONTH(`date`) = MONTH(CURDATE() - INTERVAL 1 MONTH) THEN amount ELSE 0 END) AS last_month_total
         ")
         ->first();
 
-        $monthlyDonations = DB::table('donations')
-        ->selectRaw("
-            SUM(CASE WHEN MONTH(`date`) = MONTH(CURDATE()) AND YEAR(`date`) = YEAR(CURDATE()) THEN amount ELSE 0 END) AS this_month_total,
-            SUM(CASE WHEN MONTH(`date`) = MONTH(CURDATE() - INTERVAL 1 MONTH) AND YEAR(`date`) = YEAR(CURDATE() - INTERVAL 1 MONTH) THEN amount ELSE 0 END) AS last_month_total,
-            IF(SUM(CASE WHEN MONTH(`date`) = MONTH(CURDATE() - INTERVAL 1 MONTH) AND YEAR(`date`) = YEAR(CURDATE() - INTERVAL 1 MONTH) THEN amount ELSE 0 END) > 0,
-                ROUND(((SUM(CASE WHEN MONTH(`date`) = MONTH(CURDATE()) AND YEAR(`date`) = YEAR(CURDATE()) THEN amount ELSE 0 END) - SUM(CASE WHEN MONTH(`date`) = MONTH(CURDATE() - INTERVAL 1 MONTH) AND YEAR(`date`) = YEAR(CURDATE() - INTERVAL 1 MONTH) THEN amount ELSE 0 END)) / SUM(CASE WHEN MONTH(`date`) = MONTH(CURDATE() - INTERVAL 1 MONTH) AND YEAR(`date`) = YEAR(CURDATE() - INTERVAL 1 MONTH) THEN amount ELSE 0 END)) * 100, 2),
-                0
-            ) AS percent_change
-        ")
-        ->first();
+
 
         return response()->json([
             'totalUsers' => $totalUsers,
             'totalCharityCases' => $totalCharityCases,
             'allOuterDonations' => $allOuterDonations,
-            'dailyOuterDonations' => $dailyDonations,
-            'monthlyOuterDonations' => $monthlyDonations,
+            'dailyOuterDonations' => [
+                'todayTotal' => $donations->today_total,
+                'yesterdayTotal' => $donations->yesterday_total,
+                'percentChange' => ($donations->yesterday_total > 0)
+                    ? (($donations->today_total - $donations->yesterday_total) / $donations->yesterday_total) * 100
+                    : 0,
+            ],
+            'monthlyOuterDonations' => [
+                'thisMonthTotal' => $donations->this_month_total,
+                'lastMonthTotal' => $donations->last_month_total,
+                'percentChange' => ($donations->last_month_total > 0)
+                    ? (($donations->this_month_total - $donations->last_month_total) / $donations->last_month_total) * 100
+                    : 0
+            ],
         ]);
 
 
