@@ -89,7 +89,7 @@ class DashboardController extends Controller implements HasMiddleware
                 'lastMonthTotal' => $donations->last_month_total,
                 'percentChange' => $monthlyPercentChange,
             ],
-            'donationChart' => $lastSevenDaysDonations
+            'outerDonationChart' => $lastSevenDaysDonations
         ]);
 
 
