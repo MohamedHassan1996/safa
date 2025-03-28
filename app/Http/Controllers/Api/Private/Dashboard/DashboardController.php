@@ -46,30 +46,39 @@ class DashboardController extends Controller implements HasMiddleware
             ")
             ->first();
 
-        // Calculate Daily Percentage Change
+        // ------ DAILY Percentage Calculation -------
         $dailyPercentChange = 0;
-        if ($donations->yesterday_total > 0) {
+        if ($donations->yesterday_total > 0 && $donations->today_total > 0) {
             $dailyPercentChange = round((($donations->today_total - $donations->yesterday_total) / $donations->yesterday_total) * 100, 2);
+        } elseif ($donations->yesterday_total == 0 && $donations->today_total > 0) {
+            $dailyPercentChange = 100;
+        } elseif ($donations->yesterday_total > 0 && $donations->today_total == 0) {
+            $dailyPercentChange = -100;
         }
 
-        // Calculate Monthly Percentage Change
+        // ------ MONTHLY Percentage Calculation -------
         $monthlyPercentChange = 0;
-        if ($donations->last_month_total > 0) {
+        if ($donations->last_month_total > 0 && $donations->this_month_total > 0) {
             $monthlyPercentChange = round((($donations->this_month_total - $donations->last_month_total) / $donations->last_month_total) * 100, 2);
+        } elseif ($donations->last_month_total == 0 && $donations->this_month_total > 0) {
+            $monthlyPercentChange = 100;
+        } elseif ($donations->last_month_total > 0 && $donations->this_month_total == 0) {
+            $monthlyPercentChange = -100;
         }
 
+        // ------- Return API -------
         return response()->json([
             'totalUsers' => $totalUsers,
             'totalCharityCases' => $totalCharityCases,
             'allOuterDonations' => $allOuterDonations,
             'dailyOuterDonations' => [
-                'todayTotal' => (float) $donations->today_total,
-                'yesterdayTotal' => (float) $donations->yesterday_total,
+                'todayTotal' => $donations->today_total,
+                'yesterdayTotal' => $donations->yesterday_total,
                 'percentChange' => $dailyPercentChange,
             ],
             'monthlyOuterDonations' => [
-                'thisMonthTotal' => (float) $donations->this_month_total,
-                'lastMonthTotal' => (float) $donations->last_month_total,
+                'thisMonthTotal' => $donations->this_month_total,
+                'lastMonthTotal' => $donations->last_month_total,
                 'percentChange' => $monthlyPercentChange,
             ],
         ]);
