@@ -66,6 +66,14 @@ class DashboardController extends Controller implements HasMiddleware
             $monthlyPercentChange = -100;
         }
 
+        $lastSevenDaysDonations = DB::table('donations')
+            ->selectRaw("DATE(`date`) as day, SUM(amount) as donations")
+            ->whereBetween('date', [now()->subDays(6)->toDateString(), now()->toDateString()])
+            ->groupByRaw("DATE(`date`)")
+            ->orderBy('day')
+            ->get();
+
+
         // ------- Return API -------
         return response()->json([
             'totalUsers' => $totalUsers,
@@ -81,6 +89,7 @@ class DashboardController extends Controller implements HasMiddleware
                 'lastMonthTotal' => $donations->last_month_total,
                 'percentChange' => $monthlyPercentChange,
             ],
+            'donationChart' => $lastSevenDaysDonations
         ]);
 
 
