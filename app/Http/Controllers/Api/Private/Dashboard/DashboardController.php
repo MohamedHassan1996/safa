@@ -20,7 +20,7 @@ class DashboardController extends Controller implements HasMiddleware
     {
         return [
             new Middleware('auth:api'),
-            new Middleware('permission:all_stats', only:['index']),
+            //new Middleware('permission:all_stats', only:['index']),
         ];
     }
 
