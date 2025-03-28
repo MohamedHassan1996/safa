@@ -36,7 +36,7 @@ class CreateUserRequest extends FormRequest
             'status' => ['required', new Enum(UserStatus::class)],
             'password'=> [
                 'required','string',
-                Password::min(8)->mixedCase()->numbers(),
+                Password::min(8)->letters()->numbers(),
             ],
             'roleId'=> ['required', 'numeric', 'exists:roles,id'],
             'avatar' => ["sometimes", "nullable","image", "mimes:jpeg,jpg,png,gif", "max:2048"],

@@ -40,4 +40,11 @@ class UpdateCharityRequest extends FormRequest
         ], 401));
     }
 
+    public function messages()
+    {
+        return [
+            'name.unique' => 'اسم الجمعية موجود بالفعل',
+        ];
+    }
+
 }

@@ -42,7 +42,8 @@ class CharityCaseService{
             'address' => $charityCaseData['address']??'',
             'social_status' => CharityCaseSocialStatus::from($charityCaseData['socialStatus'])->value,
             'gender' => CharityCaseGender::from($charityCaseData['gender'])->value,
-            'date_of_birth' => $charityCaseData['dateOfBirth']??null
+            'date_of_birth' => $charityCaseData['dateOfBirth']??null,
+            'note' => $charityCaseData['note']??null
 
         ]);
 

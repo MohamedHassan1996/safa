@@ -81,6 +81,11 @@ class UserService{
     public function updateUser(array $userData)
     {
 
+        $auth = auth()->user();
+        $currentUserRole = $auth->getRoleNames()[0];
+
+
+
         $avatarPath = null;
 
         if(isset($userData['avatar']) && $userData['avatar'] instanceof UploadedFile){
@@ -88,6 +93,11 @@ class UserService{
         }
 
         $user = User::find($userData['userId']);
+
+        if($currentUserRole != 'مدير عام' && $user->getRoleNames()[0] == 'مدير عام'){
+            return response()->json(['message' => 'لا يمكنك تعديل هذا المستخدم'], 403);
+        }
+
         $user->name = $userData['name'];
         $user->username = $userData['username'];
         $user->email = $userData['email']??'';
