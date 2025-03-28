@@ -6,7 +6,9 @@ use App\Http\Controllers\Api\Private\Charity\CharityController;
 use App\Http\Controllers\Api\Private\Dashboard\DashboardController;
 use App\Http\Controllers\Api\Private\Donation\DonationController;
 use App\Http\Controllers\Api\Private\Select\SelectController;
+use App\Http\Controllers\Api\Private\User\ChangePasswordController;
 use App\Http\Controllers\Api\Private\User\UserController;
+use App\Http\Controllers\Api\Private\User\UserProfileController;
 use App\Http\Controllers\Api\Public\Auth\AuthController;
 use App\Http\Resources\LogHistory\AllLogHistoryCollection;
 use App\Models\User;
@@ -31,6 +33,10 @@ Route::prefix('v1/')->group(function () {
         Route::put('update', [UserController::class, 'update']);
         Route::delete('destroy', [UserController::class, 'destroy']);
     });
+
+    Route::apiSingleton('profile', UserProfileController::class);
+    Route::put('profile/change-password', ChangePasswordController::class);
+
 
     Route::prefix('selects')->group(function(){
         Route::get('', [SelectController::class, 'getSelects']);
