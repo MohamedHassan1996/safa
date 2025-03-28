@@ -62,6 +62,8 @@ class RolesAndPermissionsSeeder extends Seeder
             'update_parameter',
             'destroy_parameter',
 
+            'all_stats'
+
         ];
 
         foreach ($permissions as $permission) {
@@ -113,6 +115,8 @@ class RolesAndPermissionsSeeder extends Seeder
             'edit_parameter',
             'update_parameter',
             'destroy_parameter',
+
+            'all_stats'
         ]);
 
         $supervisor = Role::create(['name' => 'مشرف']);
