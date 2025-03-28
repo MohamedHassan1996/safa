@@ -51,9 +51,9 @@ class DashboardController extends Controller implements HasMiddleware
         if ($donations->yesterday_total > 0 && $donations->today_total > 0) {
             $dailyPercentChange = round((($donations->today_total - $donations->yesterday_total) / $donations->yesterday_total) * 100, 2);
         } elseif ($donations->yesterday_total == 0 && $donations->today_total > 0) {
-            $dailyPercentChange = 100;
+            $dailyPercentChange = "+100%";
         } elseif ($donations->yesterday_total > 0 && $donations->today_total == 0) {
-            $dailyPercentChange = -100;
+            $dailyPercentChange = "-100%";
         }
 
         // ------ MONTHLY Percentage Calculation -------
@@ -61,9 +61,9 @@ class DashboardController extends Controller implements HasMiddleware
         if ($donations->last_month_total > 0 && $donations->this_month_total > 0) {
             $monthlyPercentChange = round((($donations->this_month_total - $donations->last_month_total) / $donations->last_month_total) * 100, 2);
         } elseif ($donations->last_month_total == 0 && $donations->this_month_total > 0) {
-            $monthlyPercentChange = 100;
+            $monthlyPercentChange = "100%";
         } elseif ($donations->last_month_total > 0 && $donations->this_month_total == 0) {
-            $monthlyPercentChange = -100;
+            $monthlyPercentChange = "-100%";
         }
 
         // ------- Return API -------
