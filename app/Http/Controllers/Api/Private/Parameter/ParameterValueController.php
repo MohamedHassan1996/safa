@@ -11,20 +11,28 @@ use App\Services\Parameter\ParameterService;
 use App\Utils\PaginateCollection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class ParameterValueController extends Controller
+
+class ParameterValueController extends Controller implements HasMiddleware
 {
     private $parameterService;
+
     public function __construct(ParameterService $parameterService)
     {
-        $this->middleware('auth:api');
-        $this->middleware('permission:all_parameters', ['only' => ['index']]);
-        $this->middleware('permission:create_parameter', ['only' => ['create']]);
-        $this->middleware('permission:edit_parameter', ['only' => ['edit']]);
-        $this->middleware('permission:update_parameter', ['only' => ['update']]);
-        $this->middleware('permission:delete_parameter', ['only' => ['delete']]);
-
         $this->parameterService = $parameterService;
+    }
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth:api'),
+            new Middleware('permission:all_parameters', only:['index']),
+            new Middleware('permission:create_parameter', only:['create']),
+            new Middleware('permission:edit_parameter', only:['edit']),
+            new Middleware('permission:update_parameter', only:['update']),
+            new Middleware('permission:destroy_parameter', only:['destroy']),
+        ];
     }
     /**
      * Display a listing of the resource.

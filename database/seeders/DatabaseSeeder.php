@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Database\Seeders\Charity\CharitySeeder;
+use Database\Seeders\Parameter\ParameterSeeder;
 use Database\Seeders\Roles\RolesAndPermissionsSeeder;
 use Database\Seeders\User\UserSeeder;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -21,7 +22,7 @@ class DatabaseSeeder extends Seeder
             CharitySeeder::class,
             RolesAndPermissionsSeeder::class,
             UserSeeder::class,
-            //ParameterSeeder::class
+            ParameterSeeder::class
         ]);
     }
 }

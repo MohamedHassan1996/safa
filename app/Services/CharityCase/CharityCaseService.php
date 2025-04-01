@@ -22,9 +22,12 @@ class CharityCaseService{
         $charityCases = QueryBuilder::for(CharityCase::class)
             ->allowedFilters([
                 AllowedFilter::custom('search', new FilterCharityCase()), // Add a custom search filter
-                AllowedFilter::exact('socialStatus', 'social_status'),
+                AllowedFilter::exact('socialStatus', 'social_status_id'),
+                AllowedFilter::exact('area', 'area_id'),
+                AllowedFilter::exact('donationPriority', 'donation_priority_id'),
                 AllowedFilter::exact('gender'),
             ])
+            ->with('area', 'donationPriority', 'socialStatus')
             ->get();
 
         return $charityCases;
@@ -40,11 +43,13 @@ class CharityCaseService{
             'email' => $charityCaseData['email']??'',
             'phone' => $charityCaseData['phone']??'',
             'address' => $charityCaseData['address']??'',
-            'social_status' => CharityCaseSocialStatus::from($charityCaseData['socialStatus'])->value,
+            'social_status_id' => $charityCaseData['socialStatusId']??null,
             'gender' => CharityCaseGender::from($charityCaseData['gender'])->value,
             'date_of_birth' => $charityCaseData['dateOfBirth']??null,
-            'note' => $charityCaseData['note']??null
-
+            'note' => $charityCaseData['note']??null,
+            'area_id' => $charityCaseData['areaId']??null,
+            'donation_priority_id' => $charityCaseData['donationPriorityId']??null,
+            'number_of_children' => $charityCaseData['numberOfChildren']??0
         ]);
 
         return $charityCase;
@@ -67,9 +72,13 @@ class CharityCaseService{
             'email' => $charityCaseData['email']??'',
             'phone' => $charityCaseData['phone']??'',
             'address' => $charityCaseData['address']??'',
-            'social_status' => CharityCaseSocialStatus::from($charityCaseData['socialStatus'])->value,
+            'social_status_id' => $charityCaseData['socialStatusId']??null,
             'gender' => CharityCaseGender::from($charityCaseData['gender'])->value,
-            'date_of_birth' => $charityCaseData['dateOfBirth']??null
+            'date_of_birth' => $charityCaseData['dateOfBirth']??null,
+            'note' => $charityCaseData['note']??null,
+            'area_id' => $charityCaseData['areaId']??null,
+            'donation_priority_id' => $charityCaseData['donationPriorityId']??null,
+            'number_of_children' => $charityCaseData['numberOfChildren']??0
         ]);
 
         $charityCase->save();

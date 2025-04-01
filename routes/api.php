@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\Private\Charity\CharityCaseDocumentController;
 use App\Http\Controllers\Api\Private\Charity\CharityController;
 use App\Http\Controllers\Api\Private\Dashboard\DashboardController;
 use App\Http\Controllers\Api\Private\Donation\DonationController;
+use App\Http\Controllers\Api\Private\Parameter\ParameterValueController;
 use App\Http\Controllers\Api\Private\Select\SelectController;
 use App\Http\Controllers\Api\Private\User\ChangePasswordController;
 use App\Http\Controllers\Api\Private\User\UserController;
@@ -75,6 +76,15 @@ Route::prefix('v1/')->group(function () {
     Route::prefix('dashboard')->group(function () {
         Route::get('', [DashboardController::class, 'index']);
     });
+
+    Route::prefix('parameters')->group(function(){
+        Route::get('', [ParameterValueController::class, 'index']);
+        Route::post('create', [ParameterValueController::class, 'create']);
+        Route::get('edit', [ParameterValueController::class, 'edit']);
+        Route::put('update', [ParameterValueController::class, 'update']);
+        Route::delete('delete', [ParameterValueController::class, 'delete']);
+    });
+
 
 
 });

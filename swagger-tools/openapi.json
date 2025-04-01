@@ -1,0 +1,269 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Laravel API Documentation",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "AuthController"
+        ],
+        "summary": "AuthController::login",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": [
+          "AuthController"
+        ],
+        "summary": "AuthController::logout",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/users/create": {
+      "post": {
+        "tags": [
+          "UserController"
+        ],
+        "summary": "UserController::create",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/users/edit": {
+      "get": {
+        "tags": [
+          "UserController"
+        ],
+        "summary": "UserController::edit",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/users/update": {
+      "put": {
+        "tags": [
+          "UserController"
+        ],
+        "summary": "UserController::update",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/users/destroy": {
+      "delete": {
+        "tags": [
+          "UserController"
+        ],
+        "summary": "UserController::destroy",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/charities/create": {
+      "post": {
+        "tags": [
+          "CharityController"
+        ],
+        "summary": "CharityController::create",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/charities/edit": {
+      "get": {
+        "tags": [
+          "CharityController"
+        ],
+        "summary": "CharityController::edit",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/charities/update": {
+      "put": {
+        "tags": [
+          "CharityController"
+        ],
+        "summary": "CharityController::update",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/charities/destroy": {
+      "delete": {
+        "tags": [
+          "CharityController"
+        ],
+        "summary": "CharityController::destroy",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/charity-cases/create": {
+      "post": {
+        "tags": [
+          "CharityCaseController"
+        ],
+        "summary": "CharityCaseController::create",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/charity-cases/edit": {
+      "get": {
+        "tags": [
+          "CharityCaseController"
+        ],
+        "summary": "CharityCaseController::edit",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/charity-cases/update": {
+      "put": {
+        "tags": [
+          "CharityCaseController"
+        ],
+        "summary": "CharityCaseController::update",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/charity-cases/destroy": {
+      "delete": {
+        "tags": [
+          "CharityCaseController"
+        ],
+        "summary": "CharityCaseController::destroy",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/charity-case-documents/create": {
+      "post": {
+        "tags": [
+          "CharityCaseDocumentController"
+        ],
+        "summary": "CharityCaseDocumentController::create",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/charity-case-documents/destroy": {
+      "delete": {
+        "tags": [
+          "CharityCaseDocumentController"
+        ],
+        "summary": "CharityCaseDocumentController::destroy",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/donations/create": {
+      "post": {
+        "tags": [
+          "DonationController"
+        ],
+        "summary": "DonationController::create",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/donations/edit": {
+      "get": {
+        "tags": [
+          "DonationController"
+        ],
+        "summary": "DonationController::edit",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/donations/update": {
+      "put": {
+        "tags": [
+          "DonationController"
+        ],
+        "summary": "DonationController::update",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/donations/destroy": {
+      "delete": {
+        "tags": [
+          "DonationController"
+        ],
+        "summary": "DonationController::destroy",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    }
+  }
+}

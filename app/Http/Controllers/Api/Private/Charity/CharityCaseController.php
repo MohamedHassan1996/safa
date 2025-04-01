@@ -60,6 +60,19 @@ class CharityCaseController extends Controller implements HasMiddleware
      * Show the form for creating a new resource.
      */
 
+    
+    /**
+     * @OA\Post(
+     *     path="/charity-cases/create",
+     *     summary="Auto generated",
+     *     tags={"CharityCaseController" },
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response"
+     *     )
+     * )
+     */
+    
     public function create(CreateCharityCaseRequest $createCharityCaseRequest)
     {
         try {
@@ -100,6 +113,19 @@ class CharityCaseController extends Controller implements HasMiddleware
      * Show the form for editing the specified resource.
      */
 
+    
+    /**
+     * @OA\Get(
+     *     path="/charity-cases/edit",
+     *     summary="Auto generated",
+     *     tags={"CharityCaseController" },
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response"
+     *     )
+     * )
+     */
+    
     public function edit(Request $request)
     {
         $charityCase  =  $this->charityCaseService->editCharityCase($request->charityCaseId);
@@ -111,6 +137,19 @@ class CharityCaseController extends Controller implements HasMiddleware
     /**
      * Update the specified resource in storage.
      */
+    
+    /**
+     * @OA\Put(
+     *     path="/charity-cases/update",
+     *     summary="Auto generated",
+     *     tags={"CharityCaseController" },
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response"
+     *     )
+     * )
+     */
+    
     public function update(UpdateCharityCaseRequest $updateCharityCaseRequest)
     {
 
@@ -132,6 +171,19 @@ class CharityCaseController extends Controller implements HasMiddleware
     /**
      * Remove the specified resource from storage.
      */
+    
+    /**
+     * @OA\Delete(
+     *     path="/charity-cases/destroy",
+     *     summary="Auto generated",
+     *     tags={"CharityCaseController" },
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response"
+     *     )
+     * )
+     */
+    
     public function destroy(Request $request)
     {
 

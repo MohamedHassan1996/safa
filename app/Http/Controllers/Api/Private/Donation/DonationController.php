@@ -54,6 +54,19 @@ class DonationController extends Controller implements HasMiddleware
      */
 
 
+    
+    /**
+     * @OA\Post(
+     *     path="/donations/create",
+     *     summary="Auto generated",
+     *     tags={"DonationController" },
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response"
+     *     )
+     * )
+     */
+    
     public function create(CreateDonationRequest $createDonationRequest)
     {
         try {
@@ -79,6 +92,19 @@ class DonationController extends Controller implements HasMiddleware
      * Show the form for editing the specified resource.
      */
 
+    
+    /**
+     * @OA\Get(
+     *     path="/donations/edit",
+     *     summary="Auto generated",
+     *     tags={"DonationController" },
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response"
+     *     )
+     * )
+     */
+    
     public function edit(Request $request)
     {
         $donation  =  $this->donationService->editDonation($request->donationId);
@@ -90,6 +116,19 @@ class DonationController extends Controller implements HasMiddleware
     /**
      * Update the specified resource in storage.
      */
+    
+    /**
+     * @OA\Put(
+     *     path="/donations/update",
+     *     summary="Auto generated",
+     *     tags={"DonationController" },
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response"
+     *     )
+     * )
+     */
+    
     public function update(UpdateDonationRequest $updateDonationRequest)
     {
 
@@ -111,6 +150,19 @@ class DonationController extends Controller implements HasMiddleware
     /**
      * Remove the specified resource from storage.
      */
+    
+    /**
+     * @OA\Delete(
+     *     path="/donations/destroy",
+     *     summary="Auto generated",
+     *     tags={"DonationController" },
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response"
+     *     )
+     * )
+     */
+    
     public function destroy(Request $request)
     {
 

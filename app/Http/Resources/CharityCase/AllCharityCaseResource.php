@@ -22,7 +22,9 @@ class AllCharityCaseResource extends JsonResource
             'phone' => $this->phone??'',
             'address'=>$this->address??'',
             'gender'=>$this->gender,
-            'socialStatus'=>$this->social_status,
+            'socialStatus'=>$this->socialStatus?->name??'',
+            'area'=>$this->area?->name??'',
+            'donationPriority'=>$this->donationPriority?->name??'',
         ];
     }
 }

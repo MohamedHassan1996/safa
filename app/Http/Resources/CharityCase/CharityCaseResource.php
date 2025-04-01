@@ -23,8 +23,11 @@ class CharityCaseResource extends JsonResource
             'address'=>$this->address??'',
             'gender'=>$this->gender,
             'dateOfBirth'=>$this->date_of_birth??'',
-            'socialStatus'=>$this->social_status,
+            'socialStatusId'=>$this->social_status_id,
             'note'=>$this->note??'',
+            'areaId'=>$this->area_id??'',
+            'donationPriorityId'=>$this->donation_priority_id??'',
+            'numberOfChildren'=>$this->number_of_children??0,
         ];
     }
 }

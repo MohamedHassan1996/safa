@@ -33,6 +33,7 @@ class UserController extends Controller implements HasMiddleware
             new Middleware('permission:all_users', only:['index']),
             new Middleware('permission:create_user', only:['create']),
             new Middleware('permission:edit_user', only:['edit']),
+            new Middleware('permission:update_user', only:['update']),
             new Middleware('permission:destroy_user', only:['destroy']),
         ];
     }
@@ -106,6 +107,19 @@ class UserController extends Controller implements HasMiddleware
      * Show the form for creating a new resource.
      */
 
+
+    /**
+     * @OA\Post(
+     *     path="/users/create",
+     *     summary="Auto generated",
+     *     tags={"UserController" },
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response"
+     *     )
+     * )
+     */
+
     public function create(CreateUserRequest $createUserRequest)
     {
         try {
@@ -131,6 +145,19 @@ class UserController extends Controller implements HasMiddleware
      * Show the form for editing the specified resource.
      */
 
+
+    /**
+     * @OA\Get(
+     *     path="/users/edit",
+     *     summary="Auto generated",
+     *     tags={"UserController" },
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response"
+     *     )
+     * )
+     */
+
     public function edit(Request $request)
     {
         $user  =  $this->userService->editUser($request->userId);
@@ -142,6 +169,19 @@ class UserController extends Controller implements HasMiddleware
     /**
      * Update the specified resource in storage.
      */
+
+    /**
+     * @OA\Put(
+     *     path="/users/update",
+     *     summary="Auto generated",
+     *     tags={"UserController" },
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response"
+     *     )
+     * )
+     */
+
     public function update(UpdateUserRequest $updateUserRequest)
     {
 
@@ -163,6 +203,19 @@ class UserController extends Controller implements HasMiddleware
     /**
      * Remove the specified resource from storage.
      */
+
+    /**
+     * @OA\Delete(
+     *     path="/users/destroy",
+     *     summary="Auto generated",
+     *     tags={"UserController" },
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response"
+     *     )
+     * )
+     */
+
     public function destroy(Request $request)
     {
 

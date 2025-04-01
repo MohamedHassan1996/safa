@@ -54,6 +54,19 @@ class CharityController extends Controller implements HasMiddleware
      */
 
 
+
+    /**
+     * @OA\Post(
+     *     path="/charities/create",
+     *     summary="Auto generated",
+     *     tags={"CharityController" },
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response"
+     *     )
+     * )
+     */
+
     public function create(CreateCharityRequest $createCharityRequest)
     {
         try {
@@ -79,6 +92,19 @@ class CharityController extends Controller implements HasMiddleware
      * Show the form for editing the specified resource.
      */
 
+
+    /**
+     * @OA\Get(
+     *     path="/charities/edit",
+     *     summary="Auto generated",
+     *     tags={"CharityController" },
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response"
+     *     )
+     * )
+     */
+
     public function edit(Request $request)
     {
         $charity  =  $this->charityService->editCharity($request->charityId);
@@ -90,6 +116,19 @@ class CharityController extends Controller implements HasMiddleware
     /**
      * Update the specified resource in storage.
      */
+
+    /**
+     * @OA\Put(
+     *     path="/charities/update",
+     *     summary="Auto generated",
+     *     tags={"CharityController" },
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response"
+     *     )
+     * )
+     */
+
     public function update(UpdateCharityRequest $updateCharityRequest)
     {
 
@@ -111,6 +150,19 @@ class CharityController extends Controller implements HasMiddleware
     /**
      * Remove the specified resource from storage.
      */
+
+    /**
+     * @OA\Delete(
+     *     path="/charities/destroy",
+     *     summary="Auto generated",
+     *     tags={"CharityController" },
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response"
+     *     )
+     * )
+     */
+
     public function destroy(Request $request)
     {
 
@@ -126,7 +178,6 @@ class CharityController extends Controller implements HasMiddleware
             DB::rollBack();
             throw $e;
         }
-
 
     }
 

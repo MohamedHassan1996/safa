@@ -57,6 +57,19 @@ class CharityCaseDocumentController extends Controller implements HasMiddleware
      * Show the form for creating a new resource.
      */
 
+    
+    /**
+     * @OA\Post(
+     *     path="/charity-case-documents/create",
+     *     summary="Auto generated",
+     *     tags={"CharityCaseDocumentController" },
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response"
+     *     )
+     * )
+     */
+    
     public function create(Request $request)
     {
         try {
@@ -94,6 +107,19 @@ class CharityCaseDocumentController extends Controller implements HasMiddleware
     /**
      * Remove the specified resource from storage.
      */
+    
+    /**
+     * @OA\Delete(
+     *     path="/charity-case-documents/destroy",
+     *     summary="Auto generated",
+     *     tags={"CharityCaseDocumentController" },
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response"
+     *     )
+     * )
+     */
+    
     public function destroy(Request $request)
     {
 

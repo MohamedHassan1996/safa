@@ -24,6 +24,202 @@
         }
     ],
     "paths": {
+        "/charity-cases/create": {
+            "post": {
+                "tags": [
+                    "CharityCaseController"
+                ],
+                "summary": "Auto generated",
+                "operationId": "a64ce14e5b7a9f1981b6374edfeb06a0",
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
+        "/charity-cases/edit": {
+            "get": {
+                "tags": [
+                    "CharityCaseController"
+                ],
+                "summary": "Auto generated",
+                "operationId": "68d4391b78ca8d209d1359277e5094ef",
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
+        "/charity-cases/update": {
+            "put": {
+                "tags": [
+                    "CharityCaseController"
+                ],
+                "summary": "Auto generated",
+                "operationId": "255dc869d37759252dcbbc1e27a65c32",
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
+        "/charity-cases/destroy": {
+            "delete": {
+                "tags": [
+                    "CharityCaseController"
+                ],
+                "summary": "Auto generated",
+                "operationId": "de78faf0db6b6d7d2432a00b967fe420",
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
+        "/charity-case-documents/create": {
+            "post": {
+                "tags": [
+                    "CharityCaseDocumentController"
+                ],
+                "summary": "Auto generated",
+                "operationId": "a9090460904286717bd90463c1d6b644",
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
+        "/charity-case-documents/destroy": {
+            "delete": {
+                "tags": [
+                    "CharityCaseDocumentController"
+                ],
+                "summary": "Auto generated",
+                "operationId": "8bd9ecfa7f035aa5f3e312dabd3a1f66",
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
+        "/charities/create": {
+            "post": {
+                "tags": [
+                    "CharityController"
+                ],
+                "summary": "Auto generated",
+                "operationId": "830b94455add923b0b55ccf523a2902b",
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
+        "/charities/edit": {
+            "get": {
+                "tags": [
+                    "CharityController"
+                ],
+                "summary": "Auto generated",
+                "operationId": "fa67fe664e1714ff225c9e85ab92f91e",
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
+        "/charities/update": {
+            "put": {
+                "tags": [
+                    "CharityController"
+                ],
+                "summary": "Auto generated",
+                "operationId": "79e1d2b36748fe973e37f1d44366e1f0",
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
+        "/charities/destroy": {
+            "delete": {
+                "tags": [
+                    "CharityController"
+                ],
+                "summary": "Auto generated",
+                "operationId": "0dd152f7abaefcdf7148f32759bd050b",
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
+        "/donations/create": {
+            "post": {
+                "tags": [
+                    "DonationController"
+                ],
+                "summary": "Auto generated",
+                "operationId": "49890861e82b9656a38af94706119682",
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
+        "/donations/edit": {
+            "get": {
+                "tags": [
+                    "DonationController"
+                ],
+                "summary": "Auto generated",
+                "operationId": "9c9a99606325f59ef19257b6ff0bd1a3",
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
+        "/donations/update": {
+            "put": {
+                "tags": [
+                    "DonationController"
+                ],
+                "summary": "Auto generated",
+                "operationId": "64244fb6fda3457f38f223ad9cd588a2",
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
+        "/donations/destroy": {
+            "delete": {
+                "tags": [
+                    "DonationController"
+                ],
+                "summary": "Auto generated",
+                "operationId": "5edb28ed44a615079fd86119811975a9",
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
         "/users": {
             "get": {
                 "tags": [
@@ -141,6 +337,62 @@
                         "bearerAuth": []
                     }
                 ]
+            }
+        },
+        "/users/create": {
+            "post": {
+                "tags": [
+                    "UserController"
+                ],
+                "summary": "Auto generated",
+                "operationId": "0069eda43eb238e6016521cc0f3c3f84",
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
+        "/users/edit": {
+            "get": {
+                "tags": [
+                    "UserController"
+                ],
+                "summary": "Auto generated",
+                "operationId": "015647c86d2ab30704c4edbc43e0bba9",
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
+        "/users/update": {
+            "put": {
+                "tags": [
+                    "UserController"
+                ],
+                "summary": "Auto generated",
+                "operationId": "09e3363fc9063afdcc747a57a5b91d54",
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
+        "/users/destroy": {
+            "delete": {
+                "tags": [
+                    "UserController"
+                ],
+                "summary": "Auto generated",
+                "operationId": "e5185eea3ae50b559a4c814dda99d70d",
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
             }
         },
         "/auth/login": {
@@ -296,6 +548,26 @@
         {
             "name": "User",
             "description": "User related endpoints"
+        },
+        {
+            "name": "CharityCaseController",
+            "description": "CharityCaseController"
+        },
+        {
+            "name": "CharityCaseDocumentController",
+            "description": "CharityCaseDocumentController"
+        },
+        {
+            "name": "CharityController",
+            "description": "CharityController"
+        },
+        {
+            "name": "DonationController",
+            "description": "DonationController"
+        },
+        {
+            "name": "UserController",
+            "description": "UserController"
         }
     ]
 }

@@ -4,8 +4,10 @@ namespace App\Models\CharityCase;
 
 use App\Enums\Charity\CharityCaseGender;
 use App\Enums\Charity\CharityCaseSocialStatus;
+use App\Models\Parameter\ParameterValue;
 use App\Traits\CreatedUpdatedBy;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Support\Facades\Lang; // Import Lang facade
@@ -44,8 +46,11 @@ class CharityCase extends Model
         'address',
         'gender',
         'date_of_birth',
-        'social_status',
-        'note'
+        'social_status_id',
+        'note',
+        'area_id',
+        'donation_priority_id',
+        'number_of_children'
     ];
 
     protected function casts(): array
@@ -60,4 +65,21 @@ class CharityCase extends Model
     {
         return $this->hasMany(CharityCaseDocument::class);
     }
+
+    public function socialStatus(): BelongsTo
+    {
+        return $this->belongsTo(ParameterValue::class, 'social_status_id');
+    }
+
+
+    public function area(): BelongsTo
+    {
+        return $this->belongsTo(ParameterValue::class, 'area_id');
+    }
+
+    public function donationPriority(): BelongsTo
+    {
+        return $this->belongsTo(ParameterValue::class, 'donation_priority_id');
+    }
+
 }
