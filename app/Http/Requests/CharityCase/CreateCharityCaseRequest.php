@@ -30,7 +30,7 @@ class CreateCharityCaseRequest extends FormRequest
             'name' => 'required',
             'phone' => 'nullable',
             'address' => 'nullable',
-            'socialStatusId' => ['required'],
+            'socialStatusId' => ['nullable'],
             'gender' => ['required'],
             'documents' => ['nullable'],
             'dateOfBirth' => ['nullable'],

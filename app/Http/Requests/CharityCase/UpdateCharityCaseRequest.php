@@ -29,7 +29,7 @@ class UpdateCharityCaseRequest extends FormRequest
             'name' => 'required',
             'phone' => 'nullable',
             'address' => 'nullable',
-            'socialStatusId' => ['required'],
+            'socialStatusId' => ['nullable'],
             'gender' => ['required'],
             'dateOfBirth' => ['nullable'],
             'note' => ['nullable'],
