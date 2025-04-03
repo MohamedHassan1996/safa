@@ -4,6 +4,7 @@ namespace App\Services\CharityCase;
 
 use App\Enums\Charity\CharityCaseGender;
 use App\Enums\Charity\CharityCaseSocialStatus;
+use App\Enums\Charity\HousingType;
 use App\Enums\CharityCase\CharityCaseStatus;
 use App\Filters\CharityCase\FilterCharityCase;
 use App\Filters\CharityCase\FilterCharityCaseRole;
@@ -25,6 +26,7 @@ class CharityCaseService{
                 AllowedFilter::exact('socialStatus', 'social_status_id'),
                 AllowedFilter::exact('area', 'area_id'),
                 AllowedFilter::exact('donationPriority', 'donation_priority_id'),
+                AllowedFilter::exact('housingType', 'housing_type'),
                 AllowedFilter::exact('gender'),
             ])
             ->with('area', 'donationPriority', 'socialStatus')
@@ -49,7 +51,8 @@ class CharityCaseService{
             'note' => $charityCaseData['note']??null,
             'area_id' => $charityCaseData['areaId']??null,
             'donation_priority_id' => $charityCaseData['donationPriorityId']??null,
-            'number_of_children' => $charityCaseData['numberOfChildren']??0
+            'number_of_children' => $charityCaseData['numberOfChildren']??0,
+            'housing_type' => HousingType::from($charityCaseData['housingType'])->value
         ]);
 
         return $charityCase;
@@ -78,7 +81,8 @@ class CharityCaseService{
             'note' => $charityCaseData['note']??null,
             'area_id' => $charityCaseData['areaId']??null,
             'donation_priority_id' => $charityCaseData['donationPriorityId']??null,
-            'number_of_children' => $charityCaseData['numberOfChildren']??0
+            'number_of_children' => $charityCaseData['numberOfChildren']??0,
+            'housing_type' => HousingType::from($charityCaseData['housingType'])->value
         ]);
 
         $charityCase->save();

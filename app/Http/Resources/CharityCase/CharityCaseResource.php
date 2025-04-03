@@ -28,6 +28,7 @@ class CharityCaseResource extends JsonResource
             'areaId'=>$this->area_id??'',
             'donationPriorityId'=>$this->donation_priority_id??'',
             'numberOfChildren'=>$this->number_of_children??0,
+            'housingType'=>$this->housing_type
         ];
     }
 }

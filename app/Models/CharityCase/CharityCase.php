@@ -4,6 +4,7 @@ namespace App\Models\CharityCase;
 
 use App\Enums\Charity\CharityCaseGender;
 use App\Enums\Charity\CharityCaseSocialStatus;
+use App\Enums\Charity\HousingType;
 use App\Models\Parameter\ParameterValue;
 use App\Traits\CreatedUpdatedBy;
 use Illuminate\Database\Eloquent\Model;
@@ -50,14 +51,15 @@ class CharityCase extends Model
         'note',
         'area_id',
         'donation_priority_id',
-        'number_of_children'
+        'number_of_children',
+        'housing_type',
     ];
 
     protected function casts(): array
     {
         return [
             'gender' => CharityCaseGender::class,
-            'social_status' => CharityCaseSocialStatus::class
+            'housing_type' => HousingType::class
         ];
     }
 

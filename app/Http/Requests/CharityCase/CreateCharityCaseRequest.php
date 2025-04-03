@@ -39,6 +39,7 @@ class CreateCharityCaseRequest extends FormRequest
             'areaId' => ['nullable'],
             'donationPriorityId' => ['nullable'],
             'numberOfChildren' => ['nullable'],
+            'housingType' => ['nullable'],
         ];
     }
 
