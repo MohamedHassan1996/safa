@@ -82,7 +82,7 @@ Route::prefix('v1/')->group(function () {
         Route::post('create', [ParameterValueController::class, 'create']);
         Route::get('edit', [ParameterValueController::class, 'edit']);
         Route::put('update', [ParameterValueController::class, 'update']);
-        Route::delete('delete', [ParameterValueController::class, 'delete']);
+        Route::delete('destroy', [ParameterValueController::class, 'destroy']);
     });
 
 

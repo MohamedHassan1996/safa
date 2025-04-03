@@ -98,7 +98,7 @@ class ParameterValueController extends Controller implements HasMiddleware
     /**
      * Remove the specified resource from storage.
      */
-    public function delete(Request $request)
+    public function destroy(Request $request)
     {
         $this->parameterService->deleteParameter($request->parameterValueId);
 
