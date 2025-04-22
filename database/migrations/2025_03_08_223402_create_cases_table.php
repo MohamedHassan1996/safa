@@ -1,7 +1,6 @@
 <?php
 
 use App\Enums\Charity\CharityCaseGender;
-use App\Enums\Charity\CharityCaseSocialStatus;
 use App\Enums\Charity\HousingType;
 use App\Traits\CreatedUpdatedByMigration;
 use Illuminate\Database\Migrations\Migration;
@@ -20,6 +19,8 @@ return new class extends Migration
             $table->id();
             $table->string('national_id')->unique();
             $table->string('name');
+            $table->string('pair_name')->nullable();
+            $table->string('pair_national_id')->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->boolean('gender')->default(CharityCaseGender::MALE->value);
@@ -31,6 +32,8 @@ return new class extends Migration
             $table->foreign('area_id')->references('id')->on('parameter_values')->onUpdate('cascade');
             $table->unsignedBigInteger('donation_priority_id')->nullable()->index();
             $table->foreign('donation_priority_id')->references('id')->on('parameter_values')->onUpdate('cascade');
+            $table->unsignedBigInteger('charity_id')->nullable()->index();
+            $table->foreign('charity_id')->references('id')->on('charities')->onUpdate('cascade');
             $table->date('date_of_birth')->nullable();
             $table->string('note')->nullable();
             $this->createdUpdatedByRelationship($table);

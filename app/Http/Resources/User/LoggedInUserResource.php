@@ -22,7 +22,8 @@ class LoggedInUserResource extends JsonResource
             'phone' => $this->phone??"",
             'address' => $this->address??"",
             'avatar' => $this->avatar,
-            'email' => $this->email??""
+            'email' => $this->email??"",
+            'charityId' => $this->charity_id
         ];
     }
 }

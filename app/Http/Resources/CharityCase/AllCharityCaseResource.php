@@ -25,6 +25,7 @@ class AllCharityCaseResource extends JsonResource
             'socialStatus'=>$this->socialStatus?->name??'',
             'area'=>$this->area?->name??'',
             'donationPriority'=>$this->donationPriority?->name??'',
+            'age' => $this->age,
         ];
     }
 }

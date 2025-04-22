@@ -3,15 +3,10 @@
 namespace App\Services\CharityCase;
 
 use App\Enums\Charity\CharityCaseGender;
-use App\Enums\Charity\CharityCaseSocialStatus;
 use App\Enums\Charity\HousingType;
-use App\Enums\CharityCase\CharityCaseStatus;
 use App\Filters\CharityCase\FilterCharityCase;
-use App\Filters\CharityCase\FilterCharityCaseRole;
+use App\Filters\CharityCase\FilterCharityCaseAge;
 use App\Models\CharityCase\CharityCase;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
-use Spatie\Permission\Models\Role;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -28,6 +23,7 @@ class CharityCaseService{
                 AllowedFilter::exact('donationPriority', 'donation_priority_id'),
                 AllowedFilter::exact('housingType', 'housing_type'),
                 AllowedFilter::exact('gender'),
+                AllowedFilter::custom('age', new FilterCharityCaseAge()),
             ])
             ->with('area', 'donationPriority', 'socialStatus')
             ->get();
@@ -38,9 +34,12 @@ class CharityCaseService{
 
     public function createCharityCase(array $charityCaseData): CharityCase
     {
-
+        $auth = auth()->user();
         $charityCase = CharityCase::create([
             'national_id' => $charityCaseData['nationalId'],
+            'pair_national_id' => $charityCaseData['pairNationalId']??'',
+            'pair_name' => $charityCaseData['pairName']??'',
+            'charity_id' => $charityCaseData['charityId']??$auth->chairty_id,
             'name' => $charityCaseData['name'],
             'email' => $charityCaseData['email']??'',
             'phone' => $charityCaseData['phone']??'',
@@ -66,11 +65,15 @@ class CharityCaseService{
 
     public function updateCharityCase(array $charityCaseData)
     {
+        $auth = auth()->user();
 
         $charityCase = CharityCase::find($charityCaseData['charityCaseId']);
 
         $charityCase->fill([
             'national_id' => $charityCaseData['nationalId'],
+            'pair_national_id' => $charityCaseData['pairNationalId']??'',
+            'pair_name' => $charityCaseData['pairName']??'',
+            'charity_id' => $charityCaseData['charityId']??$auth->chairty_id,
             'name' => $charityCaseData['name'],
             'email' => $charityCaseData['email']??'',
             'phone' => $charityCaseData['phone']??'',

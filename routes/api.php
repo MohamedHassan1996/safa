@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\Private\Charity\CharityCaseChildrenController;
 use App\Http\Controllers\Api\Private\Charity\CharityCaseController;
 use App\Http\Controllers\Api\Private\Charity\CharityCaseDocumentController;
+use App\Http\Controllers\Api\Private\Donation\DonationExportController;
 use App\Http\Controllers\Api\Private\Charity\CharityController;
 use App\Http\Controllers\Api\Private\Dashboard\DashboardController;
 use App\Http\Controllers\Api\Private\Donation\DonationController;
@@ -65,6 +67,15 @@ Route::prefix('v1/')->group(function () {
         Route::delete('destroy', [CharityCaseDocumentController::class, 'destroy']);
     });
 
+    Route::prefix('charity-children')->group(function () {
+        Route::get('', [CharityCaseChildrenController::class, 'index']);
+        Route::post('create', [CharityCaseChildrenController::class, 'create']);
+        Route::get('edit', [CharityCaseChildrenController::class, 'edit']);
+        Route::put('update', [CharityCaseChildrenController::class, 'update']);
+        Route::delete('destroy', [CharityCaseChildrenController::class, 'destroy']);
+    });
+
+
     Route::prefix('donations')->group(function () {
         Route::get('', [DonationController::class, 'index']);
         Route::post('create', [DonationController::class, 'create']);
@@ -83,6 +94,10 @@ Route::prefix('v1/')->group(function () {
         Route::get('edit', [ParameterValueController::class, 'edit']);
         Route::put('update', [ParameterValueController::class, 'update']);
         Route::delete('destroy', [ParameterValueController::class, 'destroy']);
+    });
+
+    Route::prefix('charity-cases-export')->group(function(){
+        Route::get('', [DonationExportController::class, 'index']);
     });
 
 

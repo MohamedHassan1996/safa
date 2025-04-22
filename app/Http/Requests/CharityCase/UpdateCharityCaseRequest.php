@@ -26,6 +26,9 @@ class UpdateCharityCaseRequest extends FormRequest
         return [
             'charityCaseId' => 'required',
             'nationalId' => ['required', "unique:charity_cases,national_id,$this->charityCaseId'"],
+            'pairNationalId' => ['nullable', "unique:charity_cases,pair_national_id,$this->charityCaseId'"],
+            'pairName' => ['nullable'],
+            'charityId' => ['nullable'],
             'name' => 'required',
             'phone' => 'nullable',
             'address' => 'nullable',

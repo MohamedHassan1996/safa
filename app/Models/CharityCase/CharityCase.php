@@ -7,6 +7,7 @@ use App\Enums\Charity\CharityCaseSocialStatus;
 use App\Enums\Charity\HousingType;
 use App\Models\Parameter\ParameterValue;
 use App\Traits\CreatedUpdatedBy;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Activitylog\LogOptions;
@@ -43,6 +44,8 @@ class CharityCase extends Model
     protected $fillable = [
         'national_id',
         'name',
+        'pair_name',
+        'pair_national_id',
         'phone',
         'address',
         'gender',
@@ -51,6 +54,7 @@ class CharityCase extends Model
         'note',
         'area_id',
         'donation_priority_id',
+        'national_id',
         'number_of_children',
         'housing_type',
     ];
@@ -83,5 +87,11 @@ class CharityCase extends Model
     {
         return $this->belongsTo(ParameterValue::class, 'donation_priority_id');
     }
+
+    public function getAgeAttribute()
+    {
+        return $this->date_of_birth ? Carbon::parse($this->date_of_birth)->age : "";
+    }
+
 
 }

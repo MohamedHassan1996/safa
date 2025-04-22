@@ -17,7 +17,9 @@ class ParameterSeeder extends Seeder
     protected $parameters = [
         'socialStatus',
         'area',
-        'donationPriority'
+        'donationPriority',
+        'educationLevel',
+        'donationType'
     ];
 
     /**

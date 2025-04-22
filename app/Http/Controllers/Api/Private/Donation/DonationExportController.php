@@ -1,0 +1,228 @@
+<?php
+
+namespace App\Http\Controllers\Api\Private\Donation;
+
+use App\Http\Controllers\Controller;
+
+use App\Services\Donation\DonationService;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpWord\PhpWord;
+use Spatie\LaravelPdf\Facades\Pdf;
+use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\Style\Language;
+use PhpOffice\PhpWord\Shared\Html;
+use PhpOffice\PhpWord\SimpleType\Jc;
+
+
+
+class DonationExportController extends Controller implements HasMiddleware
+{
+    protected $donationService;
+
+
+    public function __construct(DonationService $donationService)
+    {
+        $this->donationService = $donationService;
+    }
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth:api'),
+            // new Middleware('permission:all_charity_cases', only:['index']),
+            // new Middleware('permission:create_charity_case', only:['create']),
+            // new Middleware('permission:edit_charity_case', only:['edit']),
+            // new Middleware('permission:update_charity_case', only:['update']),
+            // new Middleware('permission:destroy_charity_case', only:['destroy']),
+        ];
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request)
+    {
+        if($request->exportType == 'excel') {
+
+            return $this->exportDonationsToExcel($request);
+        } elseif($request->exportType == 'pdf') {
+
+            return $this->exportDonationsToPdf($request);
+        }elseif($request->exportType == 'docx') {
+            return $this->exportDonationsToDocx($request);
+        }
+    }
+
+    private function exportDonationsToExcel(Request $request) {
+
+        // Retrieve all charity cases from the service or model
+        $allCharityCases = $this->donationService->allDonations();
+        // Create a new spreadsheet
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Set the sheet direction to right to left (for RTL languages like Arabic)
+        $sheet->setRightToLeft(true);
+
+        // Set the header row
+        $sheet->setCellValue('A1', 'اسم الحالة')
+              ->setCellValue('B1', 'الرقم القومى')
+              ->setCellValue('C1', 'اسم الزوج')
+              ->setCellValue('D1', 'الرقم القومى للزوج')
+              ->setCellValue('E1', 'العنوان')
+              ->setCellValue('F1', 'التبرع')
+              ->setCellValue('G1', 'ملاحظات');
+
+        // Bold header row and apply borders
+        $sheet->getStyle('A1:G1')->getFont()->setBold(true);
+        $sheet->getStyle('A1:G1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle('A1:G1')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+
+        // Apply borders to all cells in the range
+        $sheet->getStyle('A1:G' . (count($allCharityCases) + 1))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
+
+        // Set column widths
+        $sheet->getColumnDimension('A')->setAutoSize(true);
+        $sheet->getColumnDimension('B')->setAutoSize(true);
+        $sheet->getColumnDimension('C')->setAutoSize(true);
+        $sheet->getColumnDimension('D')->setAutoSize(true);
+        $sheet->getColumnDimension('E')->setAutoSize(true);
+        $sheet->getColumnDimension('F')->setAutoSize(true);
+        $sheet->getColumnDimension('G')->setAutoSize(true);
+
+        // Loop through each charity case and fill data starting from row 2
+        $row = 2;
+        foreach ($allCharityCases as $case) {
+            // Use setCellValueExplicit to treat these numbers as text
+            $sheet->setCellValueExplicit('B' . $row, (string) $case->charityCase->national_id, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING)
+                  ->setCellValueExplicit('D' . $row, (string) $case->charityCase->pair_national_id, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING)
+                  ->setCellValue('A' . $row, $case->charityCase?->name)
+                  ->setCellValue('C' . $row, $case->charityCase->pair_name)
+                  ->setCellValue('E' . $row, $case->charityCase->address)
+                  ->setCellValue('F' . $row, $case->amount)
+                  ->setCellValue('G' . $row, $case->note);
+
+            $row++;
+        }
+
+        // Apply autofilter to header row (A1:G1)
+        $sheet->setAutoFilter('A1:G1');
+
+        // Handle dynamic filename based on filter dates
+        $fileName = 'charity_cases.xlsx';
+        // if ($request['filter']['startDate'] || $request['filter']['endDate']) {
+        //     $fileName = 'charity_cases_from_' . $request['filter']['startDate'] . '_to_' . $request['filter']['endDate'] . '.xlsx';
+        // } else if ($request['filter']['startDate']) {
+        //     $fileName = 'charity_cases_' . $request['filter']['startDate'] . '.xlsx';
+        // } else if ($request['filter']['endDate']) {
+        //     $fileName = 'charity_cases_to_' . $request['filter']['endDate'] . '.xlsx';
+        // }
+
+        // Write the file to the server
+        $writer = new Xlsx($spreadsheet);
+
+        // Saving the file
+        $writer->save(storage_path('app/public/' . $fileName));
+
+        // Return the file for download
+        return response()->download(storage_path('app/public/' . $fileName));
+    }
+
+    private function exportDonationsToPdf(Request $request) {
+
+        // Retrieve all charity cases from the service or model
+        $allDonations = $this->donationService->allDonations();
+
+        $fileName = 'charity_cases.pdf';
+
+       /* if ($request['filter']['startDate'] || $request['filter']['endDate']) {
+            $fileName = 'charity_cases_from_' . $request['filter']['startDate'] . '_to_' . $request['filter']['endDate'] . '.pdf';
+        } elseif ($request['filter']['startDate']) {
+            $fileName = 'charity_cases_' . $request['filter']['startDate'] . '.pdf';
+        } elseif ($request['filter']['endDate']) {
+            $fileName = 'charity_cases_to_' . $request['filter']['endDate'] . '.pdf';
+        }*/
+
+        return Pdf::view('export.donation_pdf', ['allDonations' => $allDonations])
+            ->format('A4')
+            ->landscape()
+            ->name($fileName);
+    }
+
+    private function exportDonationsToDocx(Request $request)
+    {
+        $cases = $this->donationService->allDonations();
+
+        $phpWord = new PhpWord();
+
+        // RTL support
+        $phpWord->getSettings()->setThemeFontLang(new Language(null, null, 'ar-SA'));
+        $phpWord->setDefaultParagraphStyle([
+            'alignment' => Jc::RIGHT,
+            'rtl' => true,
+        ]);
+
+        $section = $phpWord->addSection();
+
+        // Title
+        $section->addText('قائمة الحالات', [
+            'bold' => true,
+            'size' => 18,
+            'alignment' => 'center',
+        ], ['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER]);
+
+        // Table
+        $table = $section->addTable([
+            'borderSize' => 6,
+            'borderColor' => '999999',
+            'alignment' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER,
+            'rtl' => true
+        ]);
+
+        // Header row
+        $table->addRow();
+        $headers = ['اسم الحالة', 'الرقم القومى', 'اسم الزوج', 'الرقم القومى للزوج', 'العنوان', 'التبرع', 'ملاحظات'];
+        foreach ($headers as $header) {
+            $table->addCell(2000)->addText($header, ['bold' => true]);
+        }
+
+        // Data rows
+        foreach ($cases as $case) {
+            $table->addRow();
+            $table->addCell(2000)->addText($case->charityCase?->name ?? '');
+            $table->addCell(2000)->addText((string)$case->charityCase?->national_id ?? '');
+            $table->addCell(2000)->addText($case->charityCase?->pair_name ?? '');
+            $table->addCell(2000)->addText((string)$case->charityCase?->pair_national_id ?? '');
+            $table->addCell(2000)->addText($case->charityCase?->address ?? '');
+            $table->addCell(2000)->addText((string)$case->amount);
+            $table->addCell(2000)->addText($case->note ?? '');
+        }
+
+        // Filename
+        $fileName = 'charity_cases.docx';
+        // $fileName = 'charity_cases.docx';
+        // if ($request['filter']['startDate'] || $request['filter']['endDate']) {
+        //     $fileName = 'charity_cases_from_' . $request['filter']['startDate'] . '_to_' . $request['filter']['endDate'] . '.docx';
+        // } elseif ($request['filter']['startDate']) {
+        //     $fileName = 'charity_cases_' . $request['filter']['startDate'] . '.docx';
+        // } elseif ($request['filter']['endDate']) {
+        //     $fileName = 'charity_cases_to_' . $request['filter']['endDate'] . '.docx';
+        // }
+
+        // Save locally
+        $tempPath = storage_path('app/public/' . $fileName);
+        $writer = IOFactory::createWriter($phpWord, 'Word2007');
+        $writer->save($tempPath);
+
+        return response()->download($tempPath);
+    }
+
+
+
+}

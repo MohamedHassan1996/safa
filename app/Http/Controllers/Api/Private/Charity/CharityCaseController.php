@@ -8,6 +8,7 @@ use App\Http\Requests\CharityCase\UpdateCharityCaseRequest;
 use App\Http\Resources\CharityCase\AllCharityCaseCollection;
 use App\Http\Resources\CharityCase\CharityCaseResource;
 use App\Models\CharityCase\CharityCaseDocument;
+use App\Models\CharityCaseChildren;
 use App\Utils\PaginateCollection;
 use App\Services\CharityCase\CharityCaseService;
 use App\Services\Upload\UploadService;
@@ -60,7 +61,7 @@ class CharityCaseController extends Controller implements HasMiddleware
      * Show the form for creating a new resource.
      */
 
-    
+
     /**
      * @OA\Post(
      *     path="/charity-cases/create",
@@ -72,7 +73,7 @@ class CharityCaseController extends Controller implements HasMiddleware
      *     )
      * )
      */
-    
+
     public function create(CreateCharityCaseRequest $createCharityCaseRequest)
     {
         try {
@@ -82,7 +83,7 @@ class CharityCaseController extends Controller implements HasMiddleware
             $charityCase = $this->charityCaseService->createCharityCase($createCharityCaseRequest->validated());
 
             $files = $createCharityCaseRequest->validated()['files']??[];
-
+            $children = $createCharityCaseRequest->validated()['children']??[];
 
 
             foreach ($files as $file) {
@@ -92,6 +93,17 @@ class CharityCaseController extends Controller implements HasMiddleware
                     'charity_case_id' => $charityCase->id,
                     'path' => $path,
                     'type' => 0
+                ]);
+            }
+
+            foreach ($children as $child) {
+                CharityCaseChildren::create([
+                    'charity_case_id' => $charityCase->id,
+                    'name' => $child['name'],
+                    'age' => $child['age']??0,
+                    'note' => $child['note']??'',
+                    'education_level_id' => $child['educationLevelId']??null,
+                    'donation_type_id' => $child['donationTypeId']??null,
                 ]);
             }
 
@@ -113,7 +125,7 @@ class CharityCaseController extends Controller implements HasMiddleware
      * Show the form for editing the specified resource.
      */
 
-    
+
     /**
      * @OA\Get(
      *     path="/charity-cases/edit",
@@ -125,7 +137,7 @@ class CharityCaseController extends Controller implements HasMiddleware
      *     )
      * )
      */
-    
+
     public function edit(Request $request)
     {
         $charityCase  =  $this->charityCaseService->editCharityCase($request->charityCaseId);
@@ -137,7 +149,7 @@ class CharityCaseController extends Controller implements HasMiddleware
     /**
      * Update the specified resource in storage.
      */
-    
+
     /**
      * @OA\Put(
      *     path="/charity-cases/update",
@@ -149,7 +161,7 @@ class CharityCaseController extends Controller implements HasMiddleware
      *     )
      * )
      */
-    
+
     public function update(UpdateCharityCaseRequest $updateCharityCaseRequest)
     {
 
@@ -171,7 +183,7 @@ class CharityCaseController extends Controller implements HasMiddleware
     /**
      * Remove the specified resource from storage.
      */
-    
+
     /**
      * @OA\Delete(
      *     path="/charity-cases/destroy",
@@ -183,7 +195,7 @@ class CharityCaseController extends Controller implements HasMiddleware
      *     )
      * )
      */
-    
+
     public function destroy(Request $request)
     {
 

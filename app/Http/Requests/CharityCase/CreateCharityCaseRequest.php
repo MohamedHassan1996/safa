@@ -27,6 +27,9 @@ class CreateCharityCaseRequest extends FormRequest
     {
         return [
             'nationalId' => ['required', 'unique:charity_cases,national_id', 'digits:14'],
+            'pairNationalId' => ['nullable', 'unique:charity_cases,pair_national_id', 'digits:14'],
+            'pairName' => ['nullable'],
+            'charityId' => ['nullable'],
             'name' => 'required',
             'phone' => 'nullable',
             'address' => 'nullable',
@@ -40,6 +43,7 @@ class CreateCharityCaseRequest extends FormRequest
             'donationPriorityId' => ['nullable'],
             'numberOfChildren' => ['nullable'],
             'housingType' => ['nullable'],
+            'children' => ['nullable'],
         ];
     }
 
