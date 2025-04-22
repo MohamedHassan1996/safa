@@ -30,11 +30,11 @@ class CharityCaseChildrenController extends Controller implements HasMiddleware
     {
         return [
             new Middleware('auth:api'),
-            // new Middleware('permission:all_charity_case_children', only:['index']),
-            // new Middleware('permission:create_charity_case_children', only:['create']),
-            // new Middleware('permission:edit_charity_case_children', only:['edit']),
-            // new Middleware('permission:update_charity_case_children', only:['update']),
-            // new Middleware('permission:destroy_charity_case_children', only:['destroy']),
+            new Middleware('permission:all_charity_case_children', only:['index']),
+            new Middleware('permission:create_charity_case_children', only:['create']),
+            new Middleware('permission:edit_charity_case_children', only:['edit']),
+            new Middleware('permission:update_charity_case_children', only:['update']),
+            new Middleware('permission:destroy_charity_case_children', only:['destroy']),
         ];
     }
 
