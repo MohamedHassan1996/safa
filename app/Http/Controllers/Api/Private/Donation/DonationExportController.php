@@ -167,7 +167,7 @@ class DonationExportController extends Controller implements HasMiddleware
         ]);
 
         // Get public URL
-        $url = url(Storage::url($fileName));
+        $url = url(Storage::url($filePath));
 
         return response()->json([
             'path' => $url
