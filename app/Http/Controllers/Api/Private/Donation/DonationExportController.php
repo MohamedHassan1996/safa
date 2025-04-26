@@ -14,7 +14,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpWord\PhpWord;
-use Spatie\LaravelPdf\Facades\Pdf;
+use Barryvdh\DomPDF\Facade\Pdf; // Add at top of controller
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\Style\Language;
 use PhpOffice\PhpWord\Shared\Html;
@@ -162,12 +162,9 @@ class DonationExportController extends Controller implements HasMiddleware
         $filePath = 'public/' . $fileName; // This saves under storage/app/public/
 
         // Generate the PDF
-        $pdf = Pdf::view('export.donation_pdf', [
+        $pdf = Pdf::loadView('export.donation_pdf', [
             'allDonations' => $allDonations
-       ])
-       ->format('A4')
-       //->landscape()
-       ->save(storage_path('app/' . $filePath));
+        ]);
 
         // Get public URL
         $url = url(Storage::url($fileName));
