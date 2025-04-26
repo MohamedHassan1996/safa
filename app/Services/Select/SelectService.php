@@ -23,11 +23,16 @@ class SelectService
                 [$method, $selectServiceClass, $paramValue] = $selectServiceData;
 
                 $selectService = new $selectServiceClass(); // Instantiate the service class
-                if(explode('=', $select)[0] == 'parameters'){
+                if(explode('=', $select)[0] == 'parametersWithColor'){
                     $selectData[] = [
                         'label' => explode('=', $select)[0] . "" . explode('=', $select)[1],
                         'options' => $selectService->$method($paramValue)
                     ];
+                }elseif(explode('=', $select)[0] == 'parameters'){
+                        $selectData[] = [
+                            'label' => explode('=', $select)[0] . "" . explode('=', $select)[1],
+                            'options' => $selectService->$method($paramValue)
+                        ];
                 }elseif(explode('=', $select)[0] == 'claimTextSelect'){
 
                     $selectData[] = [

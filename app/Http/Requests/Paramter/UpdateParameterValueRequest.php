@@ -26,7 +26,8 @@ class UpdateParameterValueRequest extends FormRequest
         return [
             'parameterValueId'=> 'required',
             'parameterValue'=> 'required',
-            'description' => '',
+            'description' => 'nullable',
+            'color' => 'nullable',
 
         ];
     }

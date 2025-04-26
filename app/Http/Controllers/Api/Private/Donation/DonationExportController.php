@@ -8,6 +8,7 @@ use App\Services\Donation\DonationService;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
@@ -34,7 +35,7 @@ class DonationExportController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            new Middleware('auth:api'),
+            //new Middleware('auth:api'),
             // new Middleware('permission:all_charity_cases', only:['index']),
             // new Middleware('permission:create_charity_case', only:['create']),
             // new Middleware('permission:edit_charity_case', only:['edit']),
@@ -115,7 +116,8 @@ class DonationExportController extends Controller implements HasMiddleware
         $sheet->setAutoFilter('A1:G1');
 
         // Handle dynamic filename based on filter dates
-        $fileName = 'charity_cases.xlsx';
+        $fileName = 'charity_cases_' . time() . '.xlsx';
+        $filePath = 'public/' . $fileName;
         // if ($request['filter']['startDate'] || $request['filter']['endDate']) {
         //     $fileName = 'charity_cases_from_' . $request['filter']['startDate'] . '_to_' . $request['filter']['endDate'] . '.xlsx';
         // } else if ($request['filter']['startDate']) {
@@ -124,14 +126,19 @@ class DonationExportController extends Controller implements HasMiddleware
         //     $fileName = 'charity_cases_to_' . $request['filter']['endDate'] . '.xlsx';
         // }
 
-        // Write the file to the server
+            // Define file name (you can customize based on dates if needed)
+
+    // Save file
         $writer = new Xlsx($spreadsheet);
+        $writer->save(storage_path('app/' . $filePath));
 
-        // Saving the file
-        $writer->save(storage_path('app/public/' . $fileName));
+        // Generate full URL
+        $url = asset('storage/' . $fileName);
 
-        // Return the file for download
-        return response()->download(storage_path('app/public/' . $fileName));
+        // Return path as JSON
+        return response()->json([
+            'path' => $url
+        ]);
     }
 
     private function exportDonationsToPdf(Request $request) {
@@ -149,10 +156,25 @@ class DonationExportController extends Controller implements HasMiddleware
             $fileName = 'charity_cases_to_' . $request['filter']['endDate'] . '.pdf';
         }*/
 
-        return Pdf::view('export.donation_pdf', ['allDonations' => $allDonations])
-            ->format('A4')
-            ->landscape()
-            ->name($fileName);
+        //dd($allDonations);
+
+        $fileName = 'charity_cases_' . time() . '.pdf';
+        $filePath = 'public/' . $fileName; // This saves under storage/app/public/
+
+        // Generate the PDF
+        $pdf = Pdf::view('export.donation_pdf', [
+            'allDonations' => $allDonations
+       ])
+       ->format('A4')
+       //->landscape()
+       ->save(storage_path('app/' . $filePath));
+
+        // Get public URL
+        $url = url(Storage::url($fileName));
+
+        return response()->json([
+            'path' => $url
+        ]);
     }
 
     private function exportDonationsToDocx(Request $request)
@@ -206,6 +228,7 @@ class DonationExportController extends Controller implements HasMiddleware
 
         // Filename
         $fileName = 'charity_cases.docx';
+        $filePath = 'public/' . $fileName; // Save inside storage/app/public/
         // $fileName = 'charity_cases.docx';
         // if ($request['filter']['startDate'] || $request['filter']['endDate']) {
         //     $fileName = 'charity_cases_from_' . $request['filter']['startDate'] . '_to_' . $request['filter']['endDate'] . '.docx';
@@ -215,12 +238,19 @@ class DonationExportController extends Controller implements HasMiddleware
         //     $fileName = 'charity_cases_to_' . $request['filter']['endDate'] . '.docx';
         // }
 
-        // Save locally
-        $tempPath = storage_path('app/public/' . $fileName);
+       // Save locally
+        $tempPath = storage_path('app/' . $filePath); // Corrected path
         $writer = IOFactory::createWriter($phpWord, 'Word2007');
         $writer->save($tempPath);
 
-        return response()->download($tempPath);
+        // Get the public URL
+        $url = url(Storage::url($fileName)); // Full URL like https://yourdomain.com/storage/charity_cases_123456.docx
+
+        // Return JSON
+        return response()->json([
+            'path' => $url
+        ]);
+
     }
 
 

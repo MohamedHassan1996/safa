@@ -30,7 +30,8 @@ class ParameterService{
             'parameter_id' => $parameter->id,
             'parameter_order' => $parameterData['parameterOrder'],
             'parameter_value' => $parameterData['parameterValue'],
-            'description' => $parameterData['description'],
+            'description' => $parameterData['description']??'',
+            'color' => $parameterData['color']??null
         ]);
 
         return $paramteterValue;
@@ -53,7 +54,8 @@ class ParameterService{
 
         $paramteterValue->fill([
             'parameter_value' => $parameterData['parameterValue'],
-            'description' => $parameterData['description'],
+            'description' => $parameterData['description']??'',
+            'color' => $parameterData['color']??null
         ]);
 
         $paramteterValue->save();
