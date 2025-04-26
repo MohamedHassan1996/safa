@@ -96,7 +96,7 @@ Route::prefix('v1/')->group(function () {
         Route::delete('destroy', [ParameterValueController::class, 'destroy']);
     });
 
-    Route::prefix('charity-cases-export')->group(function(){
+    Route::prefix('donation-export')->group(function(){
         Route::get('', [DonationExportController::class, 'index']);
     });
 
