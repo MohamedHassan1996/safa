@@ -2,11 +2,14 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
+        <!-- Load Arabic font from Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <title>الحالات الخيرية</title>
     <style>
         body {
-            font-family: DejaVu Sans, sans-serif;
+            font-family: 'Cairo', sans-serif;
             direction: rtl;
+            text-align: right;
         }
         table {
             width: 100%;
