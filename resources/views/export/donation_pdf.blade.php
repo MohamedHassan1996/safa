@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
         <!-- Load Arabic font from Google Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-    <title>الحالات الخيرية</title>
+        <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
+        <title>الحالات الخيرية</title>
     <style>
         body {
             font-family: 'Cairo', sans-serif;
