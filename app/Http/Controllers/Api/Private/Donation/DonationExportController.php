@@ -164,11 +164,6 @@ class DonationExportController extends Controller implements HasMiddleware
         // Generate the PDF
         $pdf = Pdf::loadView('export.donation_pdf', [
             'allDonations' => $allDonations
-        ])->withHtml([
-            '<link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">',
-            '<style>
-                body { font-family: "Cairo", sans-serif; direction: rtl; text-align: right; }
-            </style>'
         ])->setPaper('a4')->save(storage_path('app/' . $filePath));
 
         // Get public URL
