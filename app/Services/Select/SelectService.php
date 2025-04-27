@@ -64,6 +64,7 @@ class SelectService
             'roles' => ['getAllRoles', RoleSelectService::class],
             'permissions' => ['getAllPermissions', PermissionSelectService::class],
             'parameters' => ['getAllParameters', ParameterSelectService::class],
+            'parametersWithColor' => ['parametersWithColor', ParameterSelectService::class],
             'charities' => ['getAllCharities', CharitySelectService::class],
             'charityCases' => ['getAllCharityCases', CharityCaseSelectService::class],
         ];
