@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
         <!-- Load Arabic font from Google Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
         <title>الحالات الخيرية</title>
     <style>
+         * { font-family: 'DejaVu Sans', sans-serif; }
         body {
             font-family: 'Cairo', sans-serif;
             direction: rtl;
