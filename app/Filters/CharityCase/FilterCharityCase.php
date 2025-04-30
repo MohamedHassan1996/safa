@@ -11,6 +11,8 @@ class FilterCharityCase implements Filter
     {
         return $query->where(function ($query) use ($value) {
             $query->where('national_id', 'like', '%' . $value . '%')
+                ->orWhere('pair_national_id', 'like', '%' . $value . '%')
+                ->orWhere('pair_name', 'like', '%' . $value . '%')
                 ->orWhere('name', 'like', '%' . $value . '%')
                 ->orWhere('phone', 'like', '%' . $value . '%')
                 ->orWhere('address', 'like', '%' . $value . '%');
