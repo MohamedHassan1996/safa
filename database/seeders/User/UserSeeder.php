@@ -21,10 +21,10 @@ class UserSeeder extends Seeder
         try {
 
             $user = new User();
-            $user->username = 'Admin';
+            $user->username = 'admin';
             $user->name = 'مستر محمد عبده';
             $user->email = 'admin@admin.com';
-            $user->password = 'MaNs123456';
+            $user->password = 'mody01002361528';
             $user->status = UserStatus::ACTIVE;
             $user->email_verified_at = now();
             $user->phone = '1234567890';
