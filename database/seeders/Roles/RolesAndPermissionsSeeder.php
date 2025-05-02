@@ -140,6 +140,12 @@ class RolesAndPermissionsSeeder extends Seeder
             'update_charity_case_document',
             'destroy_charity_case_document',
 
+            'all_charity_case_children',
+            'create_charity_case_children',
+            'edit_charity_case_children',
+            'update_charity_case_children',
+            'destroy_charity_case_children',
+
             'all_donations',
             'create_donation',
             'edit_donation',

@@ -29,11 +29,11 @@ class CharityCaseChildren extends Model
 
     public function educationLevel()
     {
-        return $this->belongsTo(ParameterValue::class, 'education_level_id');
+        return $this->belongsTo(ParameterValue::class);
     }
 
     public function donationType()
     {
-        return $this->belongsTo(ParameterValue::class, 'donation_type_id');
+        return $this->belongsTo(ParameterValue::class);
     }
 }

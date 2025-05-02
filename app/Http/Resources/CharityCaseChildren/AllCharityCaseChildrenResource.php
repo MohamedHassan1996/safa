@@ -20,8 +20,8 @@ class AllCharityCaseChildrenResource extends JsonResource
             'name' => $this->name,
             'age' => $this->age??'',
             'note' => $this->note??'',
-            'educationLevelName' => $this->educationLevel?->paramter_value??'',
-            'donationTypeName' => $this->donationType?->paramter_value??'',
+            'educationLevelName' => $this->educationLevel?->parameter_value??'',
+            'donationTypeName' => $this->donationType?->parameter_value??'',
         ];
     }
 }
