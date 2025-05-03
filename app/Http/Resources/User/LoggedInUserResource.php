@@ -23,7 +23,8 @@ class LoggedInUserResource extends JsonResource
             'address' => $this->address??"",
             'avatar' => $this->avatar,
             'email' => $this->email??"",
-            'charityId' => $this->charity_id
+            'charityId' => $this->charity_id,
+            'charityName' => $this->charity?->name??''
         ];
     }
 }
