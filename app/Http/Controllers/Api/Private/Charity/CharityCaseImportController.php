@@ -83,7 +83,7 @@ class CharityCaseImportController extends Controller implements HasMiddleware
             //     dd($socialStatusId[$row[16]]);
             // }
             $data = [
-                'name' => $row[20] == '/' || $row[20] == '' ? $row[19] : "", // اسم الحالة
+                'name' => $row[20] == '/' || $row[20] == '' ? "": $row[20], // اسم الحالة
                 'national_id' => $row[19]??'', // الرقم القومي للحالة
                 'pair_name' => $row[18]??'', // اسم الزوج/الزوجة
                 'pair_national_id' => $row[17]??'', // الرقم القومي للزوج
