@@ -34,6 +34,7 @@ class UserSeeder extends Seeder
 
             $this->command->info('User created successfully.');
 
+
             $this->command->info('Checking for "superAdmin" role...');
             $role = Role::where('name', 'مدير عام')->first();
 

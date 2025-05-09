@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Private\Charity\CharityCaseChildrenController;
 use App\Http\Controllers\Api\Private\Charity\CharityCaseController;
 use App\Http\Controllers\Api\Private\Charity\CharityCaseDocumentController;
+use App\Http\Controllers\Api\Private\Charity\CharityCaseImportController;
 use App\Http\Controllers\Api\Private\Donation\DonationExportController;
 use App\Http\Controllers\Api\Private\Charity\CharityController;
 use App\Http\Controllers\Api\Private\Dashboard\DashboardController;
@@ -100,6 +101,8 @@ Route::prefix('v1/')->group(function () {
         Route::get('', [DonationExportController::class, 'index']);
     });
 
+
+    Route::post('charity-case-import', [CharityCaseImportController::class, 'index']);
 
 
 });
